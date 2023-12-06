@@ -68,8 +68,9 @@ function displayAnswers(correctAnswer){
     });
 }
 
-function evaluateAnswer(answer, correctAnswer){
+async function evaluateAnswer(answer, correctAnswer){
 
+    // Check if the answer is correct
     if(answer === correctAnswer){
         console.log('Correct Answer');
         points++;
@@ -77,7 +78,10 @@ function evaluateAnswer(answer, correctAnswer){
         console.log('Wrong Answer');
     }
 
+    // Delay
+    await delay(3000);
 
+    // Determine next action
     if (currQuestion <= 2){
         nextQuestion(catBreeds);
     }else{
