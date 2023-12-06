@@ -57,8 +57,7 @@ function displayAnswers(correctAnswer){
     answersContainer.innerHTML = "";
 
     answers.forEach(x =>{
-        var answerEl = document.createElement('div');
-        answerEl.innerHTML = x;
+        var answerEl = createAnswerElement(x)
 
         answerEl.addEventListener('click', () => {
             evaluateAnswer(x, correctAnswer);
@@ -66,6 +65,30 @@ function displayAnswers(correctAnswer){
 
         answersContainer.appendChild(answerEl);
     });
+}
+
+/**
+ * Returns a html element which contains the answer within.
+ * 
+ * @param {string} answer 
+ * @returns div element containing the answer
+ */
+function createAnswerElement(answer){
+
+    const div = document.createElement('div');
+    div.className = 'card border-primary mb-3 col-lg-4 col-sm-12';
+
+    const innerDiv = document.createElement('div');
+    innerDiv.className = 'card-body';
+
+    const h4 = document.createElement('h4');
+    h4.className = 'card-title text-center mb-0';
+    h4.textContent = answer;
+
+    innerDiv.appendChild(h4);
+    div.appendChild(innerDiv);
+
+    return div;
 }
 
 async function evaluateAnswer(answer, correctAnswer){
