@@ -1,5 +1,8 @@
 const apiKey = 'live_Y2GmDHCqmM2Nz3Jxg7Yv1GeLQywtvYFHgjr9haAIhv0kyq9dRelEbF6VDXattX7m';
 var catBreeds;
+var currQuestion = 1;
+var points = 0;
+
 
 function getCatBreeds(){
     return fetch('https://api.thecatapi.com/v1/breeds')
@@ -25,6 +28,7 @@ function nextQuestion(breeds){
 
     // Get Cat
     var randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
+    currQuestion++;
 
     getCat(randomBreed.id)
     .then(data => {
@@ -68,9 +72,22 @@ function evaluateAnswer(answer, correctAnswer){
 
     if(answer === correctAnswer){
         console.log('Correct Answer');
+        points++;
     }else{
         console.log('Wrong Answer');
     }
+
+
+    if (currQuestion <= 2){
+        nextQuestion(catBreeds);
+    }else{
+        gameOver();
+    }
+}
+
+function gameOver(){
+    console.log('Quiz Over');
+    console.log(`You got: ${points} Cat Points`);
 }
 
 window.onload = function(){
