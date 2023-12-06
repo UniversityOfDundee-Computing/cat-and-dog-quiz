@@ -9,22 +9,34 @@ function getCatBreeds(){
     })
 }
 
-function getCat(breeds){
-
-    var randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
-
-    fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${randomBreed.id}&api_key=${apiKey}`)
+function getCat(catBreed){
+    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${catBreed}&api_key=${apiKey}`)
     .then(response => response.json())
     .then(data =>{
-        console.log(data);
-        displayQuestion(data[0], randomBreed);
+        return(data)
     })
     .catch(err =>{
         console.log(err);
     })
 }
 
-function displayQuestion(data, breed){
+function nextQuestion(breeds){
+
+    // Get Cat
+    var randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
+
+    getCat(randomBreed.id)
+    .then(data => {
+        displayQuestion(data[0])
+    })
+
+    // Dispaly Question
+
+    // Display Answers
+
+}
+
+function displayQuestion(data){
 
     var questionImg = document.getElementById('question-img');
     questionImg.src = data.url;
@@ -40,22 +52,19 @@ function displayAnswer(answer){
     answerAmount = 4;
     var answersContainer = document.getElementById('question-answers');
 
-    var answers = [answer];
+    var answers = [answer, 'Answer 1', 'Answer 2', 'Answer 3'];
 
-    while(answers.length < answerAmount){
-
-
-    }
-
-
-
+    answers.forEach(x =>{
+        var answerEl = document.createNodeIt
+        answersContainer.append()
+    });
 }
 
 window.onload = function(){
 
     getCatBreeds()
     .then(catBreeds => {
-        getCat(catBreeds);
+        nextQuestion(catBreeds);
     });
 
 }
