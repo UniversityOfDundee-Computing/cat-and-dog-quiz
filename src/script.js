@@ -43,16 +43,16 @@ function displayQuestion(data){
     
     var questionText = document.getElementById('question-text');
     questionText.innerHTML = 'What is the Breed';
-    
-    // displayAnswer(breed)
+
+    displayAnswer(breed)
 }
 
-function displayAnswer(answer){
+function displayAnswers(correctAnswer){
 
     answerAmount = 4;
     var answersContainer = document.getElementById('question-answers');
 
-    var answers = [answer, 'Answer 1', 'Answer 2', 'Answer 3'];
+    var answers = [correctAnswer, 'Answer 1', 'Answer 2', 'Answer 3'];
 
     answers.forEach(x =>{
         var answerEl = document.createNodeIt
