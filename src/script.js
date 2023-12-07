@@ -113,16 +113,56 @@ async function evaluateAnswer(answer, correctAnswer){
 }
 
 function gameOver(){
-    console.log('Quiz Over');
+    var result = 'Cat or Dog Person';
     console.log(`You got: ${points} Cat Points`);
+
+    displayGameOver(result);
+
+}
+
+function displayGameOver(result){
+
+    // Create card container
+    var cardDiv = document.createElement("div");
+    cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
+
+    // Create the card header
+    var cardHeader = document.createElement("div");
+    cardHeader.classList.add("card-header", "text-center");
+    cardHeader.textContent = "Game Over";
+
+    // Create the card body element
+    var cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center");
+
+    // Create the paragraph 
+    var par = document.createElement("p");
+    par.textContent = "You are a .....";
+
+    var cardTitle = document.createElement("h4");
+    cardTitle.classList.add("card-title");
+    cardTitle.textContent = result;
+
+    // Create card body
+    cardBody.appendChild(par);
+    cardBody.appendChild(cardTitle);
+
+    // Create card
+    cardDiv.appendChild(cardHeader);
+    cardDiv.appendChild(cardBody);
+
+    document.getElementById('pop-up').appendChild(cardDiv)
+
 }
 
 window.onload = function(){
 
-    getCatBreeds()
-    .then(data => {
-        catBreeds = data
-        nextQuestion(catBreeds);
-    });
+    // getCatBreeds()
+    // .then(data => {
+    //     catBreeds = data
+    //     nextQuestion(catBreeds);
+    // });
+
+    gameOver();
 
 }
