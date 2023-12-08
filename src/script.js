@@ -2,8 +2,11 @@ const catApiKey = 'live_Y2GmDHCqmM2Nz3Jxg7Yv1GeLQywtvYFHgjr9haAIhv0kyq9dRelEbF6V
 const dogApiKey = 'live_i7mLqdlkY1JrPjPa2AgThy3OXU8jmZQLYMW74Pu2I4Fvl126MqbbLtfxs8gQeJSL';
 
 var catBreeds;
+var dogBreeds;
 var currQuestion = 1;
+
 var catPoints = 0;
+var dogPoints = 0;
 
 var questions = []
 
@@ -33,8 +36,6 @@ function generateQuestions(num){
 
         questions.push(newQuestion) 
     }
-
-    console.log(questions);
 }
 
 
@@ -48,8 +49,7 @@ function getBreeds(animal){
 
 function getAnimal(breed, type){
 
-    if (type == 'dog') api = dogApiKey;
-    else api = catApiKey;
+    var api = type == 'dog' ? dogApiKey : catApiKey;
 
     return fetch(`https://api.the${type}api.com/v1/images/search?breed_ids=${breed}&api_key=${api}`)
     .then(response => response.json())
@@ -64,25 +64,26 @@ function getAnimal(breed, type){
 function nextQuestion(){
 
     var question = questions.pop();
+
     getAnimal(question.answer.id, question.animal)
     .then(data => {
-        displayQuestion(data[0])
+        displayQuestion(data[0], question);
     })
 
 }
 
-function displayQuestion(data){
+function displayQuestion(displayData, question){
 
     var questionImg = document.getElementById('question-img');
-    questionImg.src = data.url;
+    questionImg.src = displayData.url;
     
     var questionText = document.getElementById('question-text');
     questionText.innerHTML = 'What is the Breed?';
 
-    displayAnswers(data.breeds[0].name)
+    displayAnswers(displayData.breeds[0].name, question);
 }
 
-function displayAnswers(correctAnswer){
+function displayAnswers(correctAnswer, question){
 
     answerAmount = 4;
     var answers = [correctAnswer, 'Answer 1', 'Answer 2', 'Answer 3'];
@@ -94,7 +95,7 @@ function displayAnswers(correctAnswer){
         var answerEl = createAnswerElement(x)
 
         answerEl.addEventListener('click', () => {
-            evaluateAnswer(x, correctAnswer, 'cat');
+            checkAnswer(x, question);
         });
 
         answersContainer.appendChild(answerEl);
@@ -125,22 +126,22 @@ function createAnswerElement(answer){
     return div;
 }
 
-async function evaluateAnswer(answer, correctAnswer, type){
+async function checkAnswer(answer, question){
 
     // Check if the answer is correct
-    if(answer === correctAnswer){
-        console.log('Correct Answer');
-        points++;
+    if(answer === question.answer.name){
+        question.animal === 'dog' ? dogPoints++ : catPoints++;
     }else{
         console.log('Wrong Answer');
     }
 
     // Delay
-    await delay(3000);
+    await delay(1000);
+
 
     // Determine next action
-    if (currQuestion <= 2){
-        nextQuestion(catBreeds);
+    if (questions.length > 0){
+        nextQuestion();
     }else{
         gameOver();
     }
@@ -148,7 +149,8 @@ async function evaluateAnswer(answer, correctAnswer, type){
 
 function gameOver(){
     var result = 'Cat or Dog Person';
-    console.log(`You got: ${points} Cat Points`);
+    console.log(`You got: ${catPoints} Cat Points`);
+    console.log(`You got: ${dogPoints} Dog Points`);
 
     displayGameOver(result);
 
