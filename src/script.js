@@ -1,7 +1,31 @@
-const apiKey = 'live_Y2GmDHCqmM2Nz3Jxg7Yv1GeLQywtvYFHgjr9haAIhv0kyq9dRelEbF6VDXattX7m';
+const catApiKey = 'live_Y2GmDHCqmM2Nz3Jxg7Yv1GeLQywtvYFHgjr9haAIhv0kyq9dRelEbF6VDXattX7m';
+const dogApiKey = 'live_i7mLqdlkY1JrPjPa2AgThy3OXU8jmZQLYMW74Pu2I4Fvl126MqbbLtfxs8gQeJSL';
+
 var catBreeds;
 var currQuestion = 1;
-var points = 0;
+var catPoints = 0;
+
+var questions = []
+
+class Question{
+    constructor(animal, type, answer){
+        this.animal = animal;
+        this.type = type;
+        this.answer = answer;
+    }
+}
+
+
+function generateQuestions(num){
+    
+    for (let i = 0; i < num; i++) {
+        var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
+        var newQuestion = new Question('cat', 'multiple choice', randomBreed);
+        questions.push(newQuestion) 
+    }
+
+    console.log(questions);
+}
 
 
 function getCatBreeds(){
@@ -14,7 +38,7 @@ function getCatBreeds(){
 }
 
 function getCat(catBreed){
-    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${catBreed}&api_key=${apiKey}`)
+    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${catBreed}&api_key=${catApiKey}`)
     .then(response => response.json())
     .then(data =>{
         return(data)
@@ -60,7 +84,7 @@ function displayAnswers(correctAnswer){
         var answerEl = createAnswerElement(x)
 
         answerEl.addEventListener('click', () => {
-            evaluateAnswer(x, correctAnswer);
+            evaluateAnswer(x, correctAnswer, 'cat');
         });
 
         answersContainer.appendChild(answerEl);
@@ -91,7 +115,7 @@ function createAnswerElement(answer){
     return div;
 }
 
-async function evaluateAnswer(answer, correctAnswer){
+async function evaluateAnswer(answer, correctAnswer, type){
 
     // Check if the answer is correct
     if(answer === correctAnswer){
@@ -163,7 +187,7 @@ window.onload = function(){
     getCatBreeds()
     .then(data => {
         catBreeds = data
-        nextQuestion(catBreeds);
+        generateQuestions(2);
     });
 
     // gameOver();
