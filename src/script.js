@@ -46,8 +46,12 @@ function getBreeds(animal){
     })
 }
 
-function getCat(catBreed){
-    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${catBreed}&api_key=${catApiKey}`)
+function getAnimal(breed, type){
+
+    if (type == 'dog') api = dogApiKey;
+    else api = catApiKey;
+
+    return fetch(`https://api.the${type}api.com/v1/images/search?breed_ids=${breed}&api_key=${api}`)
     .then(response => response.json())
     .then(data =>{
         return(data)
@@ -59,16 +63,11 @@ function getCat(catBreed){
 
 function nextQuestion(){
 
-    console.log(questions[0].answer);
-
-    // // Get Cat
-    // var randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
-    // currQuestion++;
-
-    // getCat(randomBreed.id)
-    // .then(data => {
-    //     displayQuestion(data[0])
-    // })
+    var question = questions.pop();
+    getAnimal(question.answer.id, question.animal)
+    .then(data => {
+        displayQuestion(data[0])
+    })
 
 }
 
