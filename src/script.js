@@ -19,8 +19,18 @@ class Question{
 function generateQuestions(num){
     
     for (let i = 0; i < num; i++) {
-        var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
-        var newQuestion = new Question('cat', 'multiple choice', randomBreed);
+
+        let newQuestion;
+
+        // Distribute dog and cat questions evenly
+        if (i % 2 == 0){
+            var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
+            newQuestion = new Question('cat', 'multiple choice', randomBreed);
+        }else{
+            var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
+            newQuestion = new Question('dog', 'multiple choice', randomBreed);
+        }
+
         questions.push(newQuestion) 
     }
 
@@ -194,7 +204,7 @@ function startQuiz(){
             dogBreeds = data
         })
         .then(() => {
-            generateQuestions(3);
+            generateQuestions(4);
         })
         .then(() => {
             nextQuestion();
