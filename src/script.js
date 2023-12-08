@@ -3,7 +3,6 @@ const dogApiKey = 'live_i7mLqdlkY1JrPjPa2AgThy3OXU8jmZQLYMW74Pu2I4Fvl126MqbbLtfx
 
 var catBreeds;
 var dogBreeds;
-var currQuestion = 1;
 
 var catPoints = 0;
 var dogPoints = 0;
@@ -148,12 +147,22 @@ async function checkAnswer(answer, question){
 }
 
 function gameOver(){
-    var result = 'Cat or Dog Person';
-    console.log(`You got: ${catPoints} Cat Points`);
-    console.log(`You got: ${dogPoints} Dog Points`);
-
+    var result = determinePersonType(catPoints, dogPoints);
     displayGameOver(result);
+}
 
+function determinePersonType(catPoints, dogPoints){
+
+    if (catPoints == 0 && dogPoints == 0)
+        return 'Sad Person'
+    else if (catPoints == dogPoints)
+        return 'Cat-Dog Person';
+    else if(catPoints > dogPoints)
+        return 'Cat Person';
+    else if(dogPoints > catPoints)
+        return 'Dog Person';
+    else
+        return '???????';
 }
 
 function displayGameOver(result){
