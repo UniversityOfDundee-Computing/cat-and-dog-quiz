@@ -122,6 +122,9 @@ function gameOver(){
 
 function displayGameOver(result){
 
+    // Remove any popups
+    document.getElementById('pop-up').innerHTML = "";
+
     // Create card container
     var cardDiv = document.createElement("div");
     cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
@@ -157,12 +160,12 @@ function displayGameOver(result){
 
 window.onload = function(){
 
-    // getCatBreeds()
-    // .then(data => {
-    //     catBreeds = data
-    //     nextQuestion(catBreeds);
-    // });
+    getCatBreeds()
+    .then(data => {
+        catBreeds = data
+        nextQuestion(catBreeds);
+    });
 
-    gameOver();
+    // gameOver();
 
 }
