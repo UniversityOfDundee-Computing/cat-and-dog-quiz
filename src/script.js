@@ -28,12 +28,11 @@ function generateQuestions(num){
 }
 
 
-function getCatBreeds(){
-    return fetch('https://api.thecatapi.com/v1/breeds')
+function getBreeds(animal){
+    return fetch(`https://api.the${animal}api.com/v1/breeds`)
     .then(response => response.json())
     .then(data => {
-        var breeds = data.map(element => ({id: element.id, name: element.name}));
-        return breeds;
+        return data.map(element => ({id: element.id, name: element.name}));
     })
 }
 
@@ -48,16 +47,18 @@ function getCat(catBreed){
     })
 }
 
-function nextQuestion(breeds){
+function nextQuestion(){
 
-    // Get Cat
-    var randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
-    currQuestion++;
+    console.log(questions[0].answer);
 
-    getCat(randomBreed.id)
-    .then(data => {
-        displayQuestion(data[0])
-    })
+    // // Get Cat
+    // var randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
+    // currQuestion++;
+
+    // getCat(randomBreed.id)
+    // .then(data => {
+    //     displayQuestion(data[0])
+    // })
 
 }
 
@@ -182,13 +183,30 @@ function displayGameOver(result){
 
 }
 
+function startQuiz(){
+
+    getBreeds('cat')
+        .then(data => {
+            catBreeds = data;
+            return getBreeds('dog');
+        })
+        .then(data => {
+            dogBreeds = data
+        })
+        .then(() => {
+            generateQuestions(3);
+        })
+        .then(() => {
+            nextQuestion();
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+}
+
 window.onload = function(){
 
-    getCatBreeds()
-    .then(data => {
-        catBreeds = data
-        generateQuestions(2);
-    });
+    startQuiz();
 
     // gameOver();
 
