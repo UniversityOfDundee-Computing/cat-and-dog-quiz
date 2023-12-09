@@ -210,11 +210,17 @@ function startQuiz() {
 
 window.onload = function () {
 
-    startQuiz();
     //displayFact('Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nemo eius consectetur voluptatem labore corrupti ipsum tempore. Iusto, nobis sunt. Reiciendis vel eligendi dolor nihil, est nulla enim voluptatem reprehenderit!')
-        
+    document.getElementById('start-quiz-btn').addEventListener('click', () => {
+        startQuiz();
+        deleteElementById('start-quiz-btn');
+    });
+
 }
+
+
 
 document.addEventListener('answerCheckResult', (data) => {
     handleAnswerResult(data.detail.points, data.detail.animalType);
+
 });
