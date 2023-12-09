@@ -84,18 +84,15 @@ async function getFact(animalType) {
     var retries = 0;
     var foundValidFact = false;
 
-    while(!foundValidFact && retries <= maxRetries){
+    while (!foundValidFact && retries <= maxRetries) {
 
         const response = await fetch(`https://cat-fact.herokuapp.com/facts/random?animal_type=${animalType}`);
         const data = await response.json();
 
-        if (data.status.verified === true)
-        {
-            console.log(data)
+        if (data.status.verified === true) {
             return data.text;
         }
         else {
-            console.log('Failed at ' + retries)
             retries++;
         }
     }
@@ -104,38 +101,46 @@ async function getFact(animalType) {
 
 }
 
-function displayFact(fact){
+async function displayFactWithDelay(fact, delayTime){
 
-        // Remove any popups
-        document.getElementById('pop-up').innerHTML = "";
+    displayFact(fact);
 
-        console.log()
+    await delay(delayTime);
 
-        // Create card container
-        var cardDiv = document.createElement("div");
-        cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
-    
-        // Create the card header
-        var cardHeader = document.createElement("div");
-        cardHeader.classList.add("card-header", "text-center");
-        cardHeader.textContent = "Fact";
-    
-        // Create the card body element
-        var cardBody = document.createElement("div");
-        cardBody.classList.add("card-body", "text-center");
-    
-        var cardTitle = document.createElement("h4");
-        cardTitle.classList.add("card-title");
-        cardTitle.textContent = fact;
-    
-        // Create card body
-        cardBody.appendChild(cardTitle);
-    
-        // Create card
-        cardDiv.appendChild(cardHeader);
-        cardDiv.appendChild(cardBody);
-    
-        document.getElementById('pop-up').appendChild(cardDiv)
+    deleteElementById('fact');
+}
+
+function displayFact(fact) {
+
+    // Remove any popups
+    document.getElementById('pop-up').innerHTML = "";
+
+    // Create card container
+    var cardDiv = document.createElement("div");
+    cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
+    cardDiv.id = 'fact';
+
+    // Create the card header
+    var cardHeader = document.createElement("div");
+    cardHeader.classList.add("card-header", "text-center");
+    cardHeader.textContent = "Fact";
+
+    // Create the card body element
+    var cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center");
+
+    var cardTitle = document.createElement("h4");
+    cardTitle.classList.add("card-title");
+    cardTitle.textContent = fact;
+
+    // Create card body
+    cardBody.appendChild(cardTitle);
+
+    // Create card
+    cardDiv.appendChild(cardHeader);
+    cardDiv.appendChild(cardBody);
+
+    document.getElementById('pop-up').appendChild(cardDiv)
 
 }
 
@@ -165,6 +170,10 @@ async function handleAnswerResult(points, animalType) {
 
     // Delay
     await delay(1000);
+
+    // Show fact
+    await getFact(animalType)
+    .then(fact => displayFactWithDelay(fact, 3000));
 
     // Determine next action
     if (questions.length > 0) {
@@ -254,12 +263,10 @@ function startQuiz() {
 
 window.onload = function () {
 
-       startQuiz();
-
-    // getFact('dog')
-    //     .then(fact => displayFact(fact))
-    //     .catch(err => console.log('Err: ' + err))
+    startQuiz();
 }
+
+
 
 document.addEventListener('answerCheckResult', (data) => {
     handleAnswerResult(data.detail.points, data.detail.animalType);

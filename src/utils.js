@@ -6,6 +6,7 @@ function delay(milliseconds) {
 }
 
 function findIdByName(list, name) {
+
     var result = list.find(item => item.name === name);
     return result.id;
 }
@@ -59,4 +60,13 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function deleteElementById(id){
+
+    var element = document.getElementById(id);
+
+    if(element)
+        element.remove()
+    
 }
