@@ -41,18 +41,6 @@ function createAnswerElement(answer) {
     return btn;
 }
 
-// function toggleAnswering(toggle){
-
-//     var answersContainer = document.getElementById('question-answers');
-//     var answers = answersContainer.children;
-
-//     if (toggle == 'on')
-//         answersContainer.removeAttribute('disabled');
-//     else if (toggle == 'off')
-//         answersContainer.setAttribute('disabled', true);
-
-// }
-
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 // Fisher-Yates (aka Knuth) Shuffle.
 function shuffle(array) {

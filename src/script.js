@@ -10,21 +10,21 @@ var dogPoints = 0;
 var questions = []
 
 
-function generateQuestions(num){
-    
+function generateQuestions(num) {
+
     for (let i = 0; i < num; i++) {
 
         let newQuestion;
 
         // Distribute dog and cat questions evenly
-        if (i % 2 == 0){
+        if (i % 2 == 0) {
 
             var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
             var possibleAnswers = getMultipleUniqueBreeds(catBreeds, 4, randomBreed.name);
 
             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
 
-        }else{
+        } else {
 
             var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
             var possibleAnswers = getMultipleUniqueBreeds(dogBreeds, 4, randomBreed.name);
@@ -36,7 +36,7 @@ function generateQuestions(num){
     }
 }
 
-function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed=null){
+function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
 
     var uniqueBreeds = [];
     var breeds = animalBreeds;
@@ -46,7 +46,7 @@ function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed=null){
         uniqueBreeds.push(includedBreed);
 
     // Get unique breeds
-    while(uniqueBreeds.length < amount){
+    while (uniqueBreeds.length < amount) {
         var ranIndex = Math.floor(Math.random() * breeds.length);
 
         const newBreed = breeds.splice(ranIndex, 1)[0];
@@ -60,104 +60,140 @@ function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed=null){
 }
 
 
-function getBreeds(animal){
+function getBreeds(animal) {
     return fetch(`https://api.the${animal}api.com/v1/breeds`)
-    .then(response => response.json())
-    .then(data => {
-        return data.map(element => ({id: element.id, name: element.name}));
-    })
+        .then(response => response.json())
+        .then(data => {
+            return data.map(element => ({ id: element.id, name: element.name }));
+        })
 }
 
-function getAnimal(breed, type){
+function getAnimal(breed, type) {
 
     var api = type == 'dog' ? dogApiKey : catApiKey;
 
     return fetch(`https://api.the${type}api.com/v1/images/search?breed_ids=${breed}&api_key=${api}`)
-    .then(response => response.json())
-    .then(data => {
-        return(data)
-    })
-    .catch(err => {
-        console.log(err);
-    })
+        .then(response => response.json())
+        .then(data => data)
 }
 
-async function showFact(animalType){
-    return new Promise(async (resolve, reject) => {
-        var foundValidFact = false;
+async function getFact(animalType) {
 
-        // Fetch facts until you get a verified one
-        while(!foundValidFact){
+    const maxRetries = 50;
 
-            await fetch(`https://cat-fact.herokuapp.com/facts/random?animal_type=${animalType}`)
-            .then(response => response.json())
-            .then(data => {
-                if(data.status.verified === true){
-                    resolve(data.text);
-                }
-            })
-            .catch(err => {
-                reject(err)
-            })
+    var retries = 0;
+    var foundValidFact = false;
+
+    while(!foundValidFact && retries <= maxRetries){
+
+        const response = await fetch(`https://cat-fact.herokuapp.com/facts/random?animal_type=${animalType}`);
+        const data = await response.json();
+
+        if (data.status.verified === true)
+        {
+            console.log(data)
+            return data.text;
         }
-    });
+        else {
+            console.log('Failed at ' + retries)
+            retries++;
+        }
+    }
+
+    throw new Error('Failed to get verified fact');
+
 }
 
-function nextQuestion(){
+function displayFact(fact){
+
+        // Remove any popups
+        document.getElementById('pop-up').innerHTML = "";
+
+        console.log()
+
+        // Create card container
+        var cardDiv = document.createElement("div");
+        cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
+    
+        // Create the card header
+        var cardHeader = document.createElement("div");
+        cardHeader.classList.add("card-header", "text-center");
+        cardHeader.textContent = "Fact";
+    
+        // Create the card body element
+        var cardBody = document.createElement("div");
+        cardBody.classList.add("card-body", "text-center");
+    
+        var cardTitle = document.createElement("h4");
+        cardTitle.classList.add("card-title");
+        cardTitle.textContent = fact;
+    
+        // Create card body
+        cardBody.appendChild(cardTitle);
+    
+        // Create card
+        cardDiv.appendChild(cardHeader);
+        cardDiv.appendChild(cardBody);
+    
+        document.getElementById('pop-up').appendChild(cardDiv)
+
+}
+
+function nextQuestion() {
 
     var question = questions.pop();
     var animalID;
 
-    if (question.animalType === 'dog') 
+    if (question.animalType === 'dog')
         animalID = findIdByName(dogBreeds, question.answer)
-    else 
+    else
         animalID = findIdByName(catBreeds, question.answer);
 
     getAnimal(animalID, question.animalType)
-    .then(data => {
-        question.displayQuestion(data[0].url);
-    })
+        .then(data => {
+            question.displayQuestion(data[0].url);
+        })
 
 }
 
-async function handleAnswerResult(points, animalType){
+async function handleAnswerResult(points, animalType) {
 
     if (animalType == 'dog')
         dogPoints += points;
-    else (animalType == 'cat')
+    else if (animalType == 'cat')
         catPoints += points;
 
     // Delay
     await delay(1000);
 
     // Determine next action
-    if (questions.length > 0){
+    if (questions.length > 0) {
         nextQuestion();
-    }else{
+    } else {
         gameOver();
     }
 }
 
-function gameOver(){
+function gameOver() {
     var result = determinePersonType(catPoints, dogPoints);
     displayGameOver(result);
 }
 
-function determinePersonType(catPoints, dogPoints){
+function determinePersonType(catPoints, dogPoints) {
 
     if (catPoints == 0 && dogPoints == 0)
         return 'Sad Person'
     else if (catPoints == dogPoints)
         return 'Cat-Dog Person';
-    else if(catPoints > dogPoints)
+    else if (catPoints > dogPoints)
         return 'Cat Person';
-    else if(dogPoints > catPoints)
+    else if (dogPoints > catPoints)
         return 'Dog Person';
     else
         return '???????';
 }
 
-function displayGameOver(result){
+function displayGameOver(result) {
 
     // Remove any popups
     document.getElementById('pop-up').innerHTML = "";
@@ -195,7 +231,7 @@ function displayGameOver(result){
 
 }
 
-function startQuiz(){
+function startQuiz() {
 
     getBreeds('cat')
         .then(data => {
@@ -211,17 +247,18 @@ function startQuiz(){
         .then(() => {
             nextQuestion();
         })
-        .catch(err =>{
+        .catch(err => {
             console.log(err);
         })
 }
 
-window.onload = function(){
+window.onload = function () {
 
-//    startQuiz();
+       startQuiz();
 
-    showFact('dog')
-    .then(fact => console.log(fact))
+    // getFact('dog')
+    //     .then(fact => displayFact(fact))
+    //     .catch(err => console.log('Err: ' + err))
 }
 
 document.addEventListener('answerCheckResult', (data) => {
