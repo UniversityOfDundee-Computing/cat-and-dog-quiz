@@ -10,11 +10,14 @@ function findIdByName(list, name) {
     return result.id;
 }
 
+function dispatchAnswerCheckResultEvent(animaType, points){
 
-// const answerCheckResult = new CustomEvent('answerCheckResult', {
-//     detail: {
-//         correct
-//         points: 0,
-//         animalType: 'type'
-//     }
-// })
+    const answerCheckResult = new CustomEvent('answerCheckResult', {
+        detail: {
+            points: points,
+            animalType: animaType
+        }
+    });
+
+    document.dispatchEvent(answerCheckResult);
+}

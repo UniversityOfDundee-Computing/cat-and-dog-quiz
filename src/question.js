@@ -20,7 +20,7 @@ class Question{
     checkAnswer(answer){
 
         var result = answer == this.answer ? 1 : 0;
-        console.log(result);
+        dispatchAnswerCheckResultEvent(this.animalType, result)
     }
 }
 
@@ -30,7 +30,6 @@ class MultipleChoiceQuestion extends Question{
         super(question, answer, animalType);
         this.possibleAnswers = possibleAnswers;
     }
-
 
     displayPossibleAnswers(){
         var answersContainer = document.getElementById('question-answers');

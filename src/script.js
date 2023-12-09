@@ -203,3 +203,9 @@ window.onload = function(){
 
     startQuiz();
 }
+
+document.addEventListener('answerCheckResult', (data) => {
+
+    console.log(data.detail)
+
+});
