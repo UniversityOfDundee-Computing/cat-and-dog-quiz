@@ -82,6 +82,27 @@ function getAnimal(breed, type){
     })
 }
 
+async function showFact(animalType){
+    return new Promise(async (resolve, reject) => {
+        var foundValidFact = false;
+
+        // Fetch facts until you get a verified one
+        while(!foundValidFact){
+
+            await fetch(`https://cat-fact.herokuapp.com/facts/random?animal_type=${animalType}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.status.verified === true){
+                    resolve(data.text);
+                }
+            })
+            .catch(err => {
+                reject(err)
+            })
+        }
+    });
+}
+
 function nextQuestion(){
 
     var question = questions.pop();
@@ -197,7 +218,10 @@ function startQuiz(){
 
 window.onload = function(){
 
-    startQuiz();
+//    startQuiz();
+
+    showFact('dog')
+    .then(fact => console.log(fact))
 }
 
 document.addEventListener('answerCheckResult', (data) => {
