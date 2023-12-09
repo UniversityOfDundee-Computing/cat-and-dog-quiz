@@ -26,23 +26,29 @@ function dispatchAnswerCheckResultEvent(animaType, points){
  * Returns a html element which contains the answer within.
  * 
  * @param {string} answer 
- * @returns div element containing the answer
+ * @returns element containing the answer
  */
 function createAnswerElement(answer){
 
-    const div = document.createElement('div');
-    div.className = 'card border-primary mb-3 col-lg-4 col-sm-12';
-    div.id = answer;
+    // Create button element
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-primary col-lg-4 col-sm-12';
 
-    const innerDiv = document.createElement('div');
-    innerDiv.className = 'card-body';
+    btn.innerHTML = answer;
+    btn.id = answer;
 
-    const h4 = document.createElement('h4');
-    h4.className = 'card-title text-center mb-0';
-    h4.textContent = answer;
+    return btn;
+}
 
-    innerDiv.appendChild(h4);
-    div.appendChild(innerDiv);
+function toggleAnswering(toggle){
 
-    return div;
+    var answersContainer = document.getElementById('question-answers');
+    var answers = answersContainer.children;
+
+    if (toggle == 'on')
+        answersContainer.removeAttribute('disabled');
+    else if (toggle == 'off')
+        answersContainer.setAttribute('disabled', true);
+
 }

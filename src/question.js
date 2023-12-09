@@ -18,9 +18,16 @@ class Question {
     displayPossibleAnswers() { }
 
     checkAnswer(answer) {
-
+        toggleAnswering('off');
         var result = answer == this.answer ? 1 : 0;
         dispatchAnswerCheckResultEvent(this.animalType, result)
+    }
+
+    enableAnswering(answerEl, mode){
+        if (mode == 'on')
+            answerEl.removeAttribute('disabled');
+        else if (mode == 'off')
+            answerEl.setAttribute('disabled', true);
     }
 }
 
@@ -40,8 +47,12 @@ class MultipleChoiceQuestion extends Question {
             var answerEl = createAnswerElement(ans);
 
             answerEl.addEventListener('click', () => {
+
+                console.log("CLICKED")
+                this.enableAnswering(false);
                 this.checkAnswer(ans);
                 this.updateAnswerElement(answerEl, ans);
+
             });
 
             answersContainer.appendChild(answerEl);
@@ -59,5 +70,19 @@ class MultipleChoiceQuestion extends Question {
             answerEl.style.color = 'red';
             document.getElementById(this.answer).style.color = 'blue';
         }
+    }
+
+    enableAnswering(mode){
+
+        this.possibleAnswers.forEach(answer => {
+
+            var answerEl = document.getElementById(answer);
+
+            if (mode == true)
+                answerEl.removeAttribute('disabled');
+            else if (mode == false)
+                answerEl.setAttribute('disabled', true);
+
+        });
     }
 }
