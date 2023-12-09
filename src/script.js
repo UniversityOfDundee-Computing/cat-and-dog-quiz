@@ -77,73 +77,6 @@ function getAnimal(breed, type) {
         .then(data => data)
 }
 
-async function getFact(animalType) {
-
-    const maxRetries = 50;
-
-    var retries = 0;
-    var foundValidFact = false;
-
-    while (!foundValidFact && retries <= maxRetries) {
-
-        const response = await fetch(`https://cat-fact.herokuapp.com/facts/random?animal_type=${animalType}`);
-        const data = await response.json();
-
-        if (data.status.verified === true) {
-            return data.text;
-        }
-        else {
-            retries++;
-        }
-    }
-
-    throw new Error('Failed to get verified fact');
-
-}
-
-async function displayFactWithDelay(fact, delayTime){
-
-    displayFact(fact);
-
-    await delay(delayTime);
-
-    deleteElementById('fact');
-}
-
-function displayFact(fact) {
-
-    // Remove any popups
-    document.getElementById('pop-up').innerHTML = "";
-
-    // Create card container
-    var cardDiv = document.createElement("div");
-    cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
-    cardDiv.id = 'fact';
-
-    // Create the card header
-    var cardHeader = document.createElement("div");
-    cardHeader.classList.add("card-header", "text-center");
-    cardHeader.textContent = "Fact";
-
-    // Create the card body element
-    var cardBody = document.createElement("div");
-    cardBody.classList.add("card-body", "text-center");
-
-    var cardTitle = document.createElement("h4");
-    cardTitle.classList.add("card-title");
-    cardTitle.textContent = fact;
-
-    // Create card body
-    cardBody.appendChild(cardTitle);
-
-    // Create card
-    cardDiv.appendChild(cardHeader);
-    cardDiv.appendChild(cardBody);
-
-    document.getElementById('pop-up').appendChild(cardDiv)
-
-}
-
 function nextQuestion() {
 
     var question = questions.pop();
@@ -188,6 +121,44 @@ function gameOver() {
     displayGameOver(result);
 }
 
+function displayGameOver(result) {
+
+    // Remove any popups
+    document.getElementById('pop-up').innerHTML = '';
+
+    // Create card container
+    var cardDiv = document.createElement('div');
+    cardDiv.classList.add('card', 'text-white', 'bg-success', 'mb-3');
+
+    // Create the card header
+    var cardHeader = document.createElement('div');
+    cardHeader.classList.add('card-header', 'text-center');
+    cardHeader.textContent = 'Game Over';
+
+    // Create the card body element
+    var cardBody = document.createElement('div');
+    cardBody.classList.add('card-body', 'text-center');
+
+    // Create the paragraph 
+    var par = document.createElement('p');
+    par.textContent = 'You are a .....';
+
+    var cardTitle = document.createElement('h4');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = result;
+
+    // Create card body
+    cardBody.appendChild(par);
+    cardBody.appendChild(cardTitle);
+
+    // Create card
+    cardDiv.appendChild(cardHeader);
+    cardDiv.appendChild(cardBody);
+
+    document.getElementById('pop-up').appendChild(cardDiv)
+
+}
+
 function determinePersonType(catPoints, dogPoints) {
 
     if (catPoints == 0 && dogPoints == 0)
@@ -202,43 +173,6 @@ function determinePersonType(catPoints, dogPoints) {
         return '???????';
 }
 
-function displayGameOver(result) {
-
-    // Remove any popups
-    document.getElementById('pop-up').innerHTML = "";
-
-    // Create card container
-    var cardDiv = document.createElement("div");
-    cardDiv.classList.add("card", "text-white", "bg-success", "mb-3");
-
-    // Create the card header
-    var cardHeader = document.createElement("div");
-    cardHeader.classList.add("card-header", "text-center");
-    cardHeader.textContent = "Game Over";
-
-    // Create the card body element
-    var cardBody = document.createElement("div");
-    cardBody.classList.add("card-body", "text-center");
-
-    // Create the paragraph 
-    var par = document.createElement("p");
-    par.textContent = "You are a .....";
-
-    var cardTitle = document.createElement("h4");
-    cardTitle.classList.add("card-title");
-    cardTitle.textContent = result;
-
-    // Create card body
-    cardBody.appendChild(par);
-    cardBody.appendChild(cardTitle);
-
-    // Create card
-    cardDiv.appendChild(cardHeader);
-    cardDiv.appendChild(cardBody);
-
-    document.getElementById('pop-up').appendChild(cardDiv)
-
-}
 
 function startQuiz() {
 
@@ -264,9 +198,8 @@ function startQuiz() {
 window.onload = function () {
 
     startQuiz();
+
 }
-
-
 
 document.addEventListener('answerCheckResult', (data) => {
     handleAnswerResult(data.detail.points, data.detail.animalType);
