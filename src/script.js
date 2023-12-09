@@ -151,9 +151,18 @@ function displayGameOver(result) {
     cardTitle.classList.add('card-title');
     cardTitle.textContent = result;
 
+    // Create button element
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'btn btn-primary col-lg-4 col-sm-12';
+    retryBtn.innerHTML = 'Retry';
+
+    retryBtn.addEventListener('click', startQuiz);
+
     // Create card body
     cardBody.appendChild(par);
     cardBody.appendChild(cardTitle);
+    cardBody.appendChild(retryBtn);
 
     // Create card
     cardDiv.appendChild(cardHeader);
