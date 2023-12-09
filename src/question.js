@@ -18,7 +18,6 @@ class Question {
     displayPossibleAnswers() { }
 
     checkAnswer(answer) {
-        toggleAnswering('off');
         var result = answer == this.answer ? 1 : 0;
         dispatchAnswerCheckResultEvent(this.animalType, result)
     }

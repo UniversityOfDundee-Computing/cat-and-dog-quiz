@@ -56,7 +56,7 @@ function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed=null){
             uniqueBreeds.push(newBreed.name);
     }
 
-    return uniqueBreeds;
+    return shuffle(uniqueBreeds);
 }
 
 
