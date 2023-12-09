@@ -76,39 +76,12 @@ function nextQuestion(){
 
 }
 
+async function handleAnswerResult(points, animalType){
 
-/**
- * Returns a html element which contains the answer within.
- * 
- * @param {string} answer 
- * @returns div element containing the answer
- */
-function createAnswerElement(answer){
-
-    const div = document.createElement('div');
-    div.className = 'card border-primary mb-3 col-lg-4 col-sm-12';
-
-    const innerDiv = document.createElement('div');
-    innerDiv.className = 'card-body';
-
-    const h4 = document.createElement('h4');
-    h4.className = 'card-title text-center mb-0';
-    h4.textContent = answer;
-
-    innerDiv.appendChild(h4);
-    div.appendChild(innerDiv);
-
-    return div;
-}
-
-async function checkAnswer(answer, question){
-
-    // Check if the answer is correct
-    if(answer === question.answer.name){
-        question.animal === 'dog' ? dogPoints++ : catPoints++;
-    }else{
-        console.log('Wrong Answer');
-    }
+    if (animalType == 'dog')
+        dogPoints += points;
+    else (animalType == 'cat')
+        catPoints += points;
 
     // Delay
     await delay(1000);
@@ -205,7 +178,5 @@ window.onload = function(){
 }
 
 document.addEventListener('answerCheckResult', (data) => {
-
-    console.log(data.detail)
-
+    handleAnswerResult(data.detail.points, data.detail.animalType);
 });
