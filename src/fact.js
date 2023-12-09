@@ -41,18 +41,19 @@ function displayFact(fact) {
     cardDiv.className = 'card border-primary mb-3';
     cardDiv.id = 'fact';
 
-    // Create the card header
-    var cardHeader = document.createElement('div');
-    cardHeader.className = 'card-header text-center';
-    cardHeader.textContent = 'Fact';
-
     // Create the card body element
     var cardBody = document.createElement('div');
     cardBody.className = 'card-body text-center';
 
+    // Create card tile element
     var cardTitle = document.createElement('h4');
-    cardTitle.className = 'card-title';
-    cardTitle.textContent = fact;
+    cardTitle.className = 'card-title text-center';
+    cardTitle.innerHTML = 'Fact';
+
+    // Create card text element
+    var cardText = document.createElement('p');
+    cardText.className = 'card-text';
+    cardText.textContent = fact;
 
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -63,9 +64,9 @@ function displayFact(fact) {
 
     // Create card body
     cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
 
     // Create card
-    cardDiv.appendChild(cardHeader);
     cardDiv.appendChild(cardBody);
     cardDiv.appendChild(btn);
 
