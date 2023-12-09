@@ -20,20 +20,43 @@ function generateQuestions(num){
         if (i % 2 == 0){
 
             var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
-            var possibleAnswers = [randomBreed.name, 'Answer 1', 'Answer 2', 'Answer 3'];
+            var possibleAnswers = getMultipleUniqueBreeds(catBreeds, 4, randomBreed.name);
 
             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
 
         }else{
 
             var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
-            var possibleAnswers = [randomBreed.name, 'Answer 1', 'Answer 2', 'Answer 3'];
+            var possibleAnswers = getMultipleUniqueBreeds(dogBreeds, 4, randomBreed.name);
 
             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
         }
 
         questions.push(newQuestion);
     }
+}
+
+function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed=null){
+
+    var uniqueBreeds = [];
+    var breeds = animalBreeds;
+
+    // Include breed if passed
+    if (includedBreed != null)
+        uniqueBreeds.push(includedBreed);
+
+    // Get unique breeds
+    while(uniqueBreeds.length < amount){
+        var ranIndex = Math.floor(Math.random() * breeds.length);
+
+        const newBreed = breeds.splice(ranIndex, 1)[0];
+
+        // Check if breed already exists in unique breeds
+        if (!uniqueBreeds.includes(newBreed.name))
+            uniqueBreeds.push(newBreed.name);
+    }
+
+    return uniqueBreeds;
 }
 
 
