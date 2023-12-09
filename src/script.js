@@ -116,14 +116,8 @@ async function handleAnswerResult(points, animalType) {
 
     // Show fact
     await getFact(animalType)
-    .then(fact => displayFact(fact));
-
-    // // Determine next action
-    // if (questions.length > 0) {
-    //     nextQuestion();
-    // } else {
-    //     gameOver();
-    // }
+    .then(fact => displayFact(fact))
+    .catch(err => nextQuestion());
 }
 
 function gameOver() {
