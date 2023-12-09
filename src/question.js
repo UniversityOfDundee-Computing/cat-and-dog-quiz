@@ -35,15 +35,26 @@ class MultipleChoiceQuestion extends Question{
         var answersContainer = document.getElementById('question-answers');
         answersContainer.innerHTML = "";
     
-        this.possibleAnswers.forEach(x => {
+        this.possibleAnswers.forEach(ans => {
 
-            var answerEl = createAnswerElement(x);
+            var answerEl = createAnswerElement(ans);
     
             answerEl.addEventListener('click', () => {
-                this.checkAnswer(x);
+                this.checkAnswer(ans);
+                this.updateAnswerElement(answerEl, ans);
             });
     
             answersContainer.appendChild(answerEl);
         });
+    }
+
+    updateAnswerElement(answerEl, selectedAnswer){
+
+       // Check if the selected answer is correct
+       var isCorrect = selectedAnswer === this.answer;
+
+       // Update element
+       answerEl.style.color = isCorrect ? 'green' : 'red';
+
     }
 }
