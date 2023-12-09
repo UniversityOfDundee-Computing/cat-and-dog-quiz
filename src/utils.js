@@ -32,6 +32,7 @@ function createAnswerElement(answer){
 
     const div = document.createElement('div');
     div.className = 'card border-primary mb-3 col-lg-4 col-sm-12';
+    div.id = answer;
 
     const innerDiv = document.createElement('div');
     innerDiv.className = 'card-body';
