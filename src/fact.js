@@ -54,12 +54,20 @@ function displayFact(fact) {
     cardTitle.className = 'card-title';
     cardTitle.textContent = fact;
 
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-primary col-lg-4 col-sm-12 mb-3';
+    btn.innerHTML = 'Next Question';
+
+    btn.addEventListener('click', nextQuestion);
+
     // Create card body
     cardBody.appendChild(cardTitle);
 
     // Create card
     cardDiv.appendChild(cardHeader);
     cardDiv.appendChild(cardBody);
+    cardDiv.appendChild(btn);
 
     document.getElementById('pop-up').appendChild(cardDiv)
 

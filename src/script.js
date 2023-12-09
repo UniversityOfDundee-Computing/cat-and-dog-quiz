@@ -79,18 +79,28 @@ function getAnimal(breed, type) {
 
 function nextQuestion() {
 
-    var question = questions.pop();
-    var animalID;
+    // Remove any popups
+    document.getElementById('pop-up').innerHTML = '';
 
-    if (question.animalType === 'dog')
-        animalID = findIdByName(dogBreeds, question.answer)
-    else
-        animalID = findIdByName(catBreeds, question.answer);
+     // Determine next action
+    if (questions.length > 0) {
 
-    getAnimal(animalID, question.animalType)
-        .then(data => {
-            question.displayQuestion(data[0].url);
-        })
+        var question = questions.pop();
+        var animalID;
+    
+        if (question.animalType === 'dog')
+            animalID = findIdByName(dogBreeds, question.answer)
+        else
+            animalID = findIdByName(catBreeds, question.answer);
+    
+        getAnimal(animalID, question.animalType)
+            .then(data => {
+                question.displayQuestion(data[0].url);
+            })
+
+    } else {
+        gameOver();
+    }
 
 }
 
@@ -106,14 +116,14 @@ async function handleAnswerResult(points, animalType) {
 
     // Show fact
     await getFact(animalType)
-    .then(fact => displayFactWithDelay(fact, 3000));
+    .then(fact => displayFact(fact));
 
-    // Determine next action
-    if (questions.length > 0) {
-        nextQuestion();
-    } else {
-        gameOver();
-    }
+    // // Determine next action
+    // if (questions.length > 0) {
+    //     nextQuestion();
+    // } else {
+    //     gameOver();
+    // }
 }
 
 function gameOver() {
@@ -198,7 +208,8 @@ function startQuiz() {
 window.onload = function () {
 
     startQuiz();
-
+    //displayFact('Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nemo eius consectetur voluptatem labore corrupti ipsum tempore. Iusto, nobis sunt. Reiciendis vel eligendi dolor nihil, est nulla enim voluptatem reprehenderit!')
+        
 }
 
 document.addEventListener('answerCheckResult', (data) => {

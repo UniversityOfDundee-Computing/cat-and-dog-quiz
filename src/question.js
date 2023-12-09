@@ -47,7 +47,6 @@ class MultipleChoiceQuestion extends Question {
 
             answerEl.addEventListener('click', () => {
 
-                console.log("CLICKED")
                 this.enableAnswering(false);
                 this.checkAnswer(ans);
                 this.updateAnswerElement(answerEl, ans);
