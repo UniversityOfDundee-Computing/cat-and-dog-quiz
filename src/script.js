@@ -9,14 +9,6 @@ var dogPoints = 0;
 
 var questions = []
 
-class Question{
-    constructor(animal, type, answer){
-        this.animal = animal;
-        this.type = type;
-        this.answer = answer;
-    }
-}
-
 
 function generateQuestions(num){
     
@@ -25,15 +17,22 @@ function generateQuestions(num){
         let newQuestion;
 
         // Distribute dog and cat questions evenly
-        if (i % 2 == 0){
+        if (i % 2 != 0){
+
             var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
-            newQuestion = new Question('cat', 'multiple choice', randomBreed);
+            var possibleAnswers = [randomBreed.name, 'Answer 1', 'Answer 2', 'Answer 3'];
+
+            newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
+
         }else{
+
             var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
-            newQuestion = new Question('dog', 'multiple choice', randomBreed);
+            var possibleAnswers = [randomBreed.name, 'Answer 1', 'Answer 2', 'Answer 3'];
+
+            newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
         }
 
-        questions.push(newQuestion) 
+        questions.push(newQuestion);
     }
 }
 
@@ -63,43 +62,24 @@ function getAnimal(breed, type){
 function nextQuestion(){
 
     var question = questions.pop();
+    var animalID;
 
-    getAnimal(question.answer.id, question.animal)
+    if (question.animalType == 'dog') animalID = findIdByName(dogBreeds, question.answer)
+    else animalID = findIdByName(catBreeds, question.answer);
+
+    console.log(animalID);
+
+    console.log(question);
+
+    getAnimal(animalID, question.animalType)
     .then(data => {
-        displayQuestion(data[0], question);
+
+        console.log(data);
+        //question.displayQuestion(data[0].url);
     })
 
 }
 
-function displayQuestion(displayData, question){
-
-    var questionImg = document.getElementById('question-img');
-    questionImg.src = displayData.url;
-    
-    var questionText = document.getElementById('question-text');
-    questionText.innerHTML = 'What is the Breed?';
-
-    displayAnswers(displayData.breeds[0].name, question);
-}
-
-function displayAnswers(correctAnswer, question){
-
-    answerAmount = 4;
-    var answers = [correctAnswer, 'Answer 1', 'Answer 2', 'Answer 3'];
-
-    var answersContainer = document.getElementById('question-answers');
-    answersContainer.innerHTML = "";
-
-    answers.forEach(x =>{
-        var answerEl = createAnswerElement(x)
-
-        answerEl.addEventListener('click', () => {
-            checkAnswer(x, question);
-        });
-
-        answersContainer.appendChild(answerEl);
-    });
-}
 
 /**
  * Returns a html element which contains the answer within.
@@ -208,10 +188,12 @@ function startQuiz(){
     getBreeds('cat')
         .then(data => {
             catBreeds = data;
+
             return getBreeds('dog');
         })
         .then(data => {
-            dogBreeds = data
+            dogBreeds = data;
+            console.log(dogBreeds)
         })
         .then(() => {
             generateQuestions(4);
