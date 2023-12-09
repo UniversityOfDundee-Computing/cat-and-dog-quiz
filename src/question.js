@@ -28,7 +28,7 @@ class MultipleChoiceQuestion extends Question{
 
     constructor(question, answer, possibleAnswers, animalType){
         super(question, answer, animalType);
-        this.animalType = animalType;
+        this.possibleAnswers = possibleAnswers;
     }
 
 

@@ -6,7 +6,8 @@ function delay(milliseconds){
 }
 
 function findIdByName(list, name) {
-    return list.find(item => item.name === name);
+    var result = list.find(item => item.name === name);
+    return result.id;
 }
 
 

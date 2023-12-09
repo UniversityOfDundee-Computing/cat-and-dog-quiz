@@ -17,7 +17,7 @@ function generateQuestions(num){
         let newQuestion;
 
         // Distribute dog and cat questions evenly
-        if (i % 2 != 0){
+        if (i % 2 == 0){
 
             var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
             var possibleAnswers = [randomBreed.name, 'Answer 1', 'Answer 2', 'Answer 3'];
@@ -51,10 +51,10 @@ function getAnimal(breed, type){
 
     return fetch(`https://api.the${type}api.com/v1/images/search?breed_ids=${breed}&api_key=${api}`)
     .then(response => response.json())
-    .then(data =>{
+    .then(data => {
         return(data)
     })
-    .catch(err =>{
+    .catch(err => {
         console.log(err);
     })
 }
@@ -64,18 +64,14 @@ function nextQuestion(){
     var question = questions.pop();
     var animalID;
 
-    if (question.animalType == 'dog') animalID = findIdByName(dogBreeds, question.answer)
-    else animalID = findIdByName(catBreeds, question.answer);
-
-    console.log(animalID);
-
-    console.log(question);
+    if (question.animalType === 'dog') 
+        animalID = findIdByName(dogBreeds, question.answer)
+    else 
+        animalID = findIdByName(catBreeds, question.answer);
 
     getAnimal(animalID, question.animalType)
     .then(data => {
-
-        console.log(data);
-        //question.displayQuestion(data[0].url);
+        question.displayQuestion(data[0].url);
     })
 
 }
@@ -116,7 +112,6 @@ async function checkAnswer(answer, question){
 
     // Delay
     await delay(1000);
-
 
     // Determine next action
     if (questions.length > 0){
@@ -188,12 +183,10 @@ function startQuiz(){
     getBreeds('cat')
         .then(data => {
             catBreeds = data;
-
             return getBreeds('dog');
         })
         .then(data => {
             dogBreeds = data;
-            console.log(dogBreeds)
         })
         .then(() => {
             generateQuestions(4);
@@ -209,7 +202,4 @@ function startQuiz(){
 window.onload = function(){
 
     startQuiz();
-
-    // gameOver();
-
 }
