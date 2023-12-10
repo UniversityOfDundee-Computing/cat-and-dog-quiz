@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Woof or Meow Quiz</title>
+    <title>Woof and Meow Quiz</title>
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 
-
     <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
+
     <script src="script.js"></script>
     <script src="utils.js"></script>
     <script src="question.js"></script>
@@ -23,26 +23,36 @@
 
     <main class="container">
 
-        <section id="question" class="row justify-content-center mt-5">
+        <section id="quiz" class="hidden">
 
-            <h1 class="text-center">Question 1</h1>
-            <img id="question-img" class="img-fluid" style="width: 40rem" src="" alt="">
-            <h3 id="question-text" class="text-center mt-3">What is the breed?</h3>
+            <h1 id="quiz-header" class="text-center mt-5">QUIZ</h1>
 
-            <div id="question-answers" class="row justify-content-center gap-1 mt-3">
-                
-                <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                
-            </div>
+            <section id="question" class="row justify-content-center mt-2">
 
+                <h2 class="text-center">Question 1</h2>
+
+                <img id="question-img" class="img-fluid" style="width: 40rem" src="" alt="">
+                <h3 id="question-text" class="text-center mt-3">What is the breed?</h3>
+    
+                <div id="question-answers" class="row justify-content-center gap-1 mt-3">
+                    
+                    <!-- <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
+                    <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
+                    <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
+                    <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button> -->
+                    
+                </div>
+    
+            </section>
+    
         </section>
 
-        <div>
-            <button type="button" class="btn btn-primary col-lg-4 col-sm-12" id="start-quiz-btn">Start Quiz</button>
+        <div id="quizzes" class="mt-5">
+            <button type="button" class="btn btn-primary sm-12 start-quiz-btn" value="cat">Cat Quiz</button>
+            <button type="button" class="btn btn-primary sm-12 start-quiz-btn" value="dog">Dog Quiz</button>
+            <button type="button" class="btn btn-primary sm-12 start-quiz-btn" value="cat-dog">Cat-Dog Quiz</button>
         </div>
+
 
 
         <div id="pop-up" class="position-absolute top-50 start-50 translate-middle row">

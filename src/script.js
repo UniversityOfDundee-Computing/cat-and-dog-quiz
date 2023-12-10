@@ -11,6 +11,10 @@ var questions = []
 
 var currentQuiz;
 
+function displayAvailableQuizzes(){
+    document.getElementById('question').innerHTML = 'QUESTIONS';
+}
+
 
 // function generateQuestions(num) {
 
@@ -62,7 +66,7 @@ function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
 }
 
 
-function getBreeds(animal) {
+async function getBreeds(animal) {
     return fetch(`https://api.the${animal}api.com/v1/breeds`)
         .then(response => response.json())
         .then(data => {
@@ -146,16 +150,16 @@ function displayGameOver(resultElement) {
     cardBody.classList.add('card-body', 'text-center');
 
     // Create button element
-    const retryBtn = document.createElement('button');
-    retryBtn.type = 'button';
-    retryBtn.className = 'btn btn-primary col-lg-4 col-sm-12';
-    retryBtn.innerHTML = 'Retry';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-primary col-lg-4 col-sm-12';
+    btn.innerHTML = 'Home';
 
-    //retryBtn.addEventListener('click', startQuiz);
+    btn.addEventListener('click', displayAvailableQuizzes);
 
     // Create card body
     cardBody.appendChild(resultElement);
-    //cardBody.appendChild(retryBtn);
+    cardBody.appendChild(btn);
 
     // Create card
     cardDiv.appendChild(cardHeader);
@@ -180,61 +184,47 @@ function determinePersonType(catPoints, dogPoints) {
 }
 
 
-function startQuiz() {
+function startQuiz(type) {
 
-    // getBreeds('cat')
-    //     .then(data => {
-    //         catBreeds = data;
-    //         return getBreeds('dog');
-    //     })
-    //     .then(data => {
-    //         dogBreeds = data;
-    //     })
-    //     .then(() => {
-    //         generateQuestions(4);
-    //     })
-    //     .then(() => {
-    //         nextQuestion();
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
+    console.log(type);
+
+    if (type === 'cat' || type === 'dog'){
+
+        getBreeds(type)
+        .then(data => {
+
+            currentQuiz = new BreedsQuiz(data, type);
+            currentQuiz.createQuestions(2);
+
+            console.log(currentQuiz.questions)
+
+            currentQuiz.start();
+        })     
+        .then(() => {
+
+            document.addEventListener('answerCheckResult', (data) => {
+                currentQuiz.handleAnswerResult(data.detail.points);
+            });
+
+        })   
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
 }
 
 window.onload = function () {
 
-    // //displayFact('Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nemo eius consectetur voluptatem labore corrupti ipsum tempore. Iusto, nobis sunt. Reiciendis vel eligendi dolor nihil, est nulla enim voluptatem reprehenderit!')
-    // document.getElementById('start-quiz-btn').addEventListener('click', () => {
-    //     startQuiz();
-    //     deleteElementById('start-quiz-btn');
-    // });
+    var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
 
-    const animalType = 'cat';
+    startQuizBtns = Array.from(startQuizBtns);
 
-    getBreeds(animalType)
-    .then(data => {
-        currentQuiz = new BreedsQuiz(data, animalType);
-        currentQuiz.createQuestions(2);
+    startQuizBtns.forEach(button => {
 
-        console.log(currentQuiz.questions)
-
-        currentQuiz.start();
-    })     
-    .then(() => {
-
-        document.addEventListener('answerCheckResult', (data) => {
-            currentQuiz.handleAnswerResult(data.detail.points);
+        button.addEventListener('click', (event) => {
+            startQuiz(event.target.value);
         });
-
-    })   
-    .catch(err => {
-        console.log(err);
-    })
-
-
-
+    });
 
 }
-
-
-

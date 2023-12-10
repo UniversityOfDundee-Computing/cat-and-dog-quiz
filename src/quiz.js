@@ -6,10 +6,17 @@ class Quiz {
     createQuestions(amount){}
 
     start() {
-        if (this.questions.length > 0)
+        if (this.questions.length > 0){
+            this.displayQuiz();
             this.nextQuestion();
+        }
         else
             console.log('No Questions Present');
+    }
+
+    displayQuiz(){
+        document.getElementById('quiz-header').textContent = 'QUIZ X';
+        document.getElementById('quiz').classList.toggle('hidden');
     }
 
     nextQuestion(){}
