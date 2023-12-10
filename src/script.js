@@ -127,7 +127,7 @@ function getAnimal(breed, type) {
 //     displayGameOver(result);
 // }
 
-function displayGameOver(result) {
+function displayGameOver(resultElement) {
 
     // Remove any popups
     document.getElementById('pop-up').innerHTML = '';
@@ -145,26 +145,17 @@ function displayGameOver(result) {
     var cardBody = document.createElement('div');
     cardBody.classList.add('card-body', 'text-center');
 
-    // Create the paragraph 
-    var par = document.createElement('p');
-    par.textContent = 'You are a .....';
-
-    var cardTitle = document.createElement('h4');
-    cardTitle.classList.add('card-title');
-    cardTitle.textContent = result;
-
     // Create button element
     const retryBtn = document.createElement('button');
     retryBtn.type = 'button';
     retryBtn.className = 'btn btn-primary col-lg-4 col-sm-12';
     retryBtn.innerHTML = 'Retry';
 
-    retryBtn.addEventListener('click', startQuiz);
+    //retryBtn.addEventListener('click', startQuiz);
 
     // Create card body
-    cardBody.appendChild(par);
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(retryBtn);
+    cardBody.appendChild(resultElement);
+    //cardBody.appendChild(retryBtn);
 
     // Create card
     cardDiv.appendChild(cardHeader);
@@ -218,7 +209,7 @@ window.onload = function () {
     //     deleteElementById('start-quiz-btn');
     // });
 
-    const animalType = 'dog';
+    const animalType = 'cat';
 
     getBreeds(animalType)
     .then(data => {

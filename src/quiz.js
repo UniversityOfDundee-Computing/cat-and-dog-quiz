@@ -16,11 +16,11 @@ class Quiz {
 
     checkAnswer(){}
 
-    gameOver(){
-
+    quizOver(){
         console.log('game over');
-
     }
+
+    determineOutcome(){}
 
 }
 
@@ -43,6 +43,8 @@ class BreedsQuiz extends Quiz {
             let newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, this.animalType);
             this.questions.push(newQuestion);
         }
+
+        this.questionAmount = this.questions.length;
     }
 
     nextQuestion() {
@@ -64,7 +66,7 @@ class BreedsQuiz extends Quiz {
                 })
 
         } else {
-            this.gameOver();
+            this.quizOver();
         }
 
     }
@@ -82,6 +84,42 @@ class BreedsQuiz extends Quiz {
             this.nextQuestion();
         }))
         .catch(err => this.nextQuestion());
+    }
+
+    quizOver(){
+
+        // Create the paragraph 
+        var par = document.createElement('p');
+        par.textContent = 'You are a .....';
+
+        var cardTitle = document.createElement('h4');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = this.determineOutcome();
+
+        displayGameOver(cardTitle);
+
+    }
+
+    determineOutcome(){
+
+        const points = this.points;
+        const maxScore = this.questionAmount;
+
+        const animalType = capitalizeFirstLetter(this.animalType) + 's';
+
+        if (points === maxScore)
+            return 'King of ' + animalType;
+        else if (points === 0)
+            return 'Sad Person';
+        // else if (points > maxScore/2)
+        //     return 'Duke of ' + animalType;
+        else if (points >= maxScore/2)
+            return 'Knight of ' + animalType;
+        else if (points < maxScore/2)
+             return 'Squire of ' + animalType;
+        else
+            return 'Sad Person';
+
     }
 
 }

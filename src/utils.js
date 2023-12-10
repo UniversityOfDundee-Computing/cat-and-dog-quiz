@@ -43,6 +43,7 @@ function createAnswerElement(answer) {
     return btn;
 }
 
+
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 // Fisher-Yates (aka Knuth) Shuffle.
 function shuffle(array) {
@@ -70,4 +71,8 @@ function deleteElementById(id){
     if(element)
         element.remove()
     
+}
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
