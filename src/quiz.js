@@ -186,7 +186,7 @@ class MultipleAnimalsBreedsQuiz extends BreedsQuiz {
 
         // Show fact
         await getFact(result.animalType)
-            .then(fact => displayFact(fact, () => {
+            .then(fact => displayFact(fact, 'theme-purple', () => {
                 this.nextQuestion();
             }))
             .catch(err => this.nextQuestion());

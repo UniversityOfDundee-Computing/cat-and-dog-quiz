@@ -62,8 +62,74 @@ h1, h2 {
     display: block;
 }
 
+.button{
+    border-radius: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    color: white;
+}
 
+.button:hover{
+    border-radius: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    background-color: white;
+}
 
+.card-custom{
+    background-color: white;
+}
+
+/* .card-custom .button{
+    background-color: black;
+}
+
+.theme-purple > .card-custom .button{
+    background-color: #6f42c1;
+    color: red;
+} */
+
+.button{
+    background-color: #6f42c1;
+    border: 1px solid #6f42c1;
+}
+
+.theme-purple .card-header{
+    background-color: #6f42c1;
+    color: white
+}
+
+.button:hover{
+    color: #6f42c1;;
+    border: 1px solid #6f42c1;
+}
+
+/* 
+.theme-purple > .card-custom{
+    background-color: #6f42c1;
+} */
+
+/* .theme-purple .button{
+    background-color: #6f42c1;
+    border: 1px solid #6f42c1;
+}
+
+.theme-purple .button:hover{
+    color: #6f42c1;;
+    border: 1px solid #6f42c1;
+}
+
+.theme-purple .card-custom{
+    border-color: #6f42c1;
+    background-color: white;
+}
+
+.card-custom > .card-body{
+    background-color: white;
+}
+
+.theme-purple .card-custom > .card-header{
+    background-color: #6f42c1;
+    color: white;
+} */
 
 
 

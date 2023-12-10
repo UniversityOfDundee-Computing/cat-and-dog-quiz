@@ -23,44 +23,50 @@ async function getFact(animalType) {
 
 }
 
-function displayFact(fact, callback) {
+function displayFact(fact, theme, callback) {
 
     // Remove any popups
     document.getElementById('pop-up').innerHTML = '';
 
     // Create card container
     var cardDiv = document.createElement('div');
-    cardDiv.className = 'card border-primary mb-3';
+    cardDiv.className = 'card card-custom ' + theme;
     cardDiv.id = 'fact';
+
+    var cardHeader = document.createElement('div');
+    cardHeader.className = 'card-header text-center';
+    cardHeader.innerHTML = 'FACT';
 
     // Create the card body element
     var cardBody = document.createElement('div');
-    cardBody.className = 'card-body text-center';
+    cardBody.className = 'card-body';
 
-    // Create card tile element
-    var cardTitle = document.createElement('h4');
-    cardTitle.className = 'card-title text-center';
-    cardTitle.innerHTML = 'Fact';
 
     // Create card text element
     var cardText = document.createElement('p');
     cardText.className = 'card-text';
     cardText.textContent = fact;
 
+    var buttonDiv = document.createElement('div');
+    buttonDiv.className = 'd-flex justify-content-end';
+
+    // Create button element
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn btn-primary col-lg-4 col-sm-12 mb-3';
-    btn.innerHTML = 'Next Question';
+    btn.className = 'button';
+    btn.innerHTML = 'Next';
 
     btn.addEventListener('click', callback);
 
+    buttonDiv.appendChild(btn);
+
     // Create card body
-    cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText);
+    cardBody.appendChild(buttonDiv)
 
     // Create card
-    cardDiv.appendChild(cardBody);
-    cardDiv.appendChild(btn);
+    cardDiv.append(cardHeader)
+    cardDiv.appendChild(cardBody);;
 
     document.getElementById('pop-up').appendChild(cardDiv)
 

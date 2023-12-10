@@ -154,4 +154,6 @@ window.onload = function () {
         });
     });
 
+    //displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-purple', null)
+
 }
