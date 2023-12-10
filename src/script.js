@@ -17,33 +17,6 @@ function displayAvailableQuizzes(){
     document.getElementById('pop-up').classList.add('hidden');
 }
 
-
-// function generateQuestions(num) {
-
-//     for (let i = 0; i < num; i++) {
-
-//         let newQuestion;
-
-//         // Distribute dog and cat questions evenly
-//         if (i % 2 == 0) {
-
-//             var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
-//             var possibleAnswers = getMultipleUniqueBreeds(catBreeds, 4, randomBreed.name);
-
-//             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
-
-//         } else {
-
-//             var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
-//             var possibleAnswers = getMultipleUniqueBreeds(dogBreeds, 4, randomBreed.name);
-
-//             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
-//         }
-
-//         questions.push(newQuestion);
-//     }
-// }
-
 function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
 
     var uniqueBreeds = [];
@@ -186,9 +159,9 @@ function determinePersonType(catPoints, dogPoints) {
 }
 
 
-function startQuiz(type) {
+function startQuiz(quiz) {
 
-    console.log(type);
+    console.log(quiz);
 
     if(currentQuiz != null){
         document.removeEventListener('answerCheckResult', (data) => {
@@ -196,12 +169,12 @@ function startQuiz(type) {
         });
     }
 
-    if (type === 'cat' || type === 'dog'){
+    if (quiz === 'cat' || quiz === 'dog'){
 
-        getBreeds(type)
+        getBreeds(quiz)
         .then(data => {
 
-            currentQuiz = new BreedsQuiz(type + ' Quiz', data, type);
+            currentQuiz = new BreedsQuiz(quiz + ' Quiz', data, quiz);
             currentQuiz.createQuestions(2);
 
             console.log(currentQuiz.questions)
@@ -218,6 +191,45 @@ function startQuiz(type) {
         .catch(err => {
             console.log(err);
         })
+    }
+    else if (quiz === 'cat-dog'){
+
+
+        var catBreeds;
+        var dogBreeds;
+
+        getBreeds('cat')
+        .then(data => {
+            catBreeds = data;
+            return getBreeds('dog');
+
+            currentQuiz = new BreedsQuiz(quiz + ' Quiz', data, quiz);
+            currentQuiz.createQuestions(2);
+
+            console.log(currentQuiz.questions)
+
+            currentQuiz.start();
+        })   
+        .then(data => {
+            currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', catBreeds, data);
+            currentQuiz.createQuestions(4);
+
+            console.log(currentQuiz.questions)
+
+            currentQuiz.start();
+
+        })  
+        .then(() => {
+
+            document.addEventListener('answerCheckResult', (data) => {
+                currentQuiz.handleAnswerResult(data.detail.points);
+            });
+
+        })   
+        .catch(err => {
+            console.log(err);
+        })
+
     }
 
 }

@@ -132,3 +132,37 @@ class BreedsQuiz extends Quiz {
     }
 
 }
+
+class MultipleAnimalsBreedsQuiz extends BreedsQuiz{
+    constructor(name, catBreeds, dogBreeds) {
+        super(name);
+        this.catBreeds = catBreeds;
+        this.dogBreeds = dogBreeds;
+        this.questions = [];
+        this.catPoints = 0;
+        this.dogPoints = 0;
+    }
+
+    createQuestions(amount) {
+
+        for (let i = 0; i < amount; i++) {
+
+            var newQuestion;
+
+            if(i % 2 === 0){
+                var randomBreed = this.catBreeds[Math.floor(Math.random() * this.catBreeds.length)];
+                var possibleAnswers = getMultipleUniqueBreeds(this.catBreeds, 4, randomBreed.name);
+                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
+            }
+            else{
+                var randomBreed = this.dogBreeds[Math.floor(Math.random() * this.dogBreeds.length)];
+                var possibleAnswers = getMultipleUniqueBreeds(this.dogBreeds, 4, randomBreed.name);
+                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
+            }
+
+            this.questions.push(newQuestion);
+        }
+
+        this.questionAmount = this.questions.length;
+    }
+}
