@@ -23,7 +23,7 @@ body{
 
 .bg{
     height: 100vh;
-    background-image: url('assets/layered-waves-haikei.svg');
+    background-image: url('../assets/layered-waves-haikei.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
