@@ -30,7 +30,9 @@ body{
 .quiz-type{
     /* background-color: #6cc3d5; */
     color: white;
+    font-size: 2rem;
     border-radius: 1rem;
+    border: none;
 }
 
 .theme-blue{
@@ -50,19 +52,8 @@ body{
 }
 
 .start-quiz-btn{
-    width: max-content;
-
-}
-
-.quiz-type {
-    -webkit-filter: brightness(100%);
-}
-
-.quiz-type:hover {
-    -webkit-filter: brightness(70%);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    transition: all 1s ease;
+    color: white;
+    font-size: 2rem;
+    border-radius: 1rem;
+    border: none;
 }
