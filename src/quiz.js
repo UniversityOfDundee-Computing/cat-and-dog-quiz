@@ -17,7 +17,8 @@ class Quiz {
 
     displayQuiz(){
         document.getElementById('quiz-header').textContent = this.name;
-        document.getElementById('quiz').classList.toggle('hidden');
+        document.getElementById('quiz').classList.remove('hidden');
+
     }
 
     nextQuestion(){}

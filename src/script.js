@@ -12,7 +12,9 @@ var questions = []
 var currentQuiz;
 
 function displayAvailableQuizzes(){
-    document.getElementById('question').innerHTML = 'QUESTIONS';
+    document.getElementById('quizzes').classList.remove('hidden');
+    document.getElementById('quiz').classList.add('hidden');
+    document.getElementById('pop-up').classList.add('hidden');
 }
 
 
@@ -187,6 +189,12 @@ function determinePersonType(catPoints, dogPoints) {
 function startQuiz(type) {
 
     console.log(type);
+
+    if(currentQuiz != null){
+        document.removeEventListener('answerCheckResult', (data) => {
+            currentQuiz.handleAnswerResult(data.detail.points);
+        });
+    }
 
     if (type === 'cat' || type === 'dog'){
 
