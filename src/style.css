@@ -23,7 +23,7 @@ body{
     display: none;
 }
 
-#quizzes h1, h2 {
+h1, h2 {
     color: white;
 }
 
@@ -57,3 +57,14 @@ body{
     border-radius: 1rem;
     border: none;
 }
+
+.img{
+    display: block;
+}
+
+
+
+
+
+
+

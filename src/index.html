@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quiz.css">
 
     <script src="script.js"></script>
     <script src="utils.js"></script>
@@ -50,29 +51,6 @@
 
     <main class="container">
 
-        <section id="quiz" class="hidden">
-
-            <h1 id="quiz-header" class="text-center mt-5">QUIZ</h1>
-
-            <section id="question" class="row justify-content-center mt-2">
-
-                <h2 class="text-center">Question 1</h2>
-
-                <img id="question-img" class="img-fluid" style="max-height: 20rem; width: auto" src="" alt="">
-                <h3 id="question-text" class="text-center mt-3">What is the breed?</h3>
-
-                <div id="question-answers" class="row justify-content-center gap-1 mt-3">
-
-                    <!-- <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                    <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                    <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button>
-                    <button type="button" class="btn btn-primary col-lg-4 col-sm-12">Cat 1</button> -->
-
-                </div>
-
-            </section>
-
-        </section>
 
         <div id="quizzes" class="mt-5">
 
@@ -88,25 +66,41 @@
                     <button type="button" class="start-quiz-btn col-12 col-md-3 text-center theme-green py-4" value="cat-dog">Cat-Dog</button>
                     <button type="button" class="start-quiz-btn col-12 col-md-3 text-center theme-blue py-4" value="dog">Dog</button>
 
-                    <!-- <div class="quiz-type col-12 col-md-3 text-center theme-purple">
-                        <h2 class="my-4">Cat</h2>
-                    </div>
-                    
-                    <div class="quiz-type col-12 col-md-3 text-center theme-green">
-                        <h2 class="my-4">Cat Dog</h2>
-                    </div>
-
-                    <div class="quiz-type col-12 col-md-3 text-center theme-blue">
-                        <h2 class="my-4">Dog</h2>
-                    </div> -->
-
                   </div>
 
             </section>
 
         </div>
 
-        <div id="pop-up" class="position-absolute top-50 start-50 translate-middle row">
+
+        <section id="quiz" class="hidden">
+
+            <h1 id="quiz-header" class="text-center mt-5 ">QUIZ</h1>
+
+            <section id="question" class="row justify-content-center mt-2">
+
+                <h2 class="text-center col-12  mt-3">Question 1</h2>
+
+                <img id="question-img" class="img-fluid col-12" style="max-height: 20rem; width: auto" src="https://picsum.photos/id/1/500/500" alt="">
+
+                <h3 id="question-text" class="text-center col-12 mt-3 question-text">What is the breed?</h3>
+
+                <div id="question-answers" class="row justify-content-center gap-3 mt-3">
+
+                    <button type="button" class="question-answer col-lg-4 col-sm-12 correct-answer">Cat 1</button>
+                    <button type="button" class="question-answer col-lg-4 col-sm-12">Cat 1</button>
+                    <button type="button" class="question-answer col-lg-4 col-sm-12">Cat 1</button>
+                    <button type="button" class="question-answer col-lg-4 col-sm-12 wrong-answer">Cat 1</button>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <div id="pop-up" class="position-absolute top-50 start-50 translate-middle">
         </div>
 
     </main>

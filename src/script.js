@@ -143,7 +143,6 @@ function startCatDogQuiz() {
 }
 
 window.onload = function () {
-
     var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
 
     startQuizBtns = Array.from(startQuizBtns);

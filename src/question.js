@@ -64,10 +64,10 @@ class MultipleChoiceQuestion extends Question {
         var isCorrect = selectedAnswer === this.answer;
 
         if (isCorrect)
-            answerEl.style.color = 'green';
+            answerEl.classList.add('correct-answer');
         else{
-            answerEl.style.color = 'red';
-            document.getElementById(this.answer).style.color = 'blue';
+            answerEl.classList.add('wrong-answer');
+            document.getElementById(this.answer).classList.add('correct-answer');
         }
     }
 

@@ -28,7 +28,7 @@ function createAnswerElement(answer) {
     // Create button element
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn btn-primary col-lg-4 col-sm-12';
+    btn.className = 'question-answer col-lg-4 col-sm-12';
 
     btn.innerHTML = answer;
     btn.id = answer;
