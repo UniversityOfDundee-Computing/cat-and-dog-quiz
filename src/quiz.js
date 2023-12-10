@@ -1,6 +1,7 @@
 class Quiz {
-    constructor(name) {
+    constructor(name, theme) {
         this.name = name;
+        this.theme = theme;
         this.questions = [];
     }
 
@@ -16,6 +17,7 @@ class Quiz {
     }
 
     displayQuiz() {
+        document.getElementById('quiz').classList.add(this.theme);
         document.getElementById('quiz-header').textContent = this.name;
         document.getElementById('quiz').classList.remove('hidden');
 
@@ -34,8 +36,8 @@ class Quiz {
 }
 
 class BreedsQuiz extends Quiz {
-    constructor(name, breeds, animalType) {
-        super(name);
+    constructor(name, theme, breeds, animalType) {
+        super(name, theme);
         this.animalType = animalType;
         this.breeds = breeds;
         this.questions = [];
@@ -76,7 +78,7 @@ class BreedsQuiz extends Quiz {
     displayQuestion(question) {
         getAnimalDetails(question.animalID, question.animalType)
             .then(data => {
-                question.displayQuestion(data[0].url);
+                question.displayQuestion(data[0].url, this.theme);
             })
     }
 
@@ -140,8 +142,8 @@ class BreedsQuiz extends Quiz {
 }
 
 class MultipleAnimalsBreedsQuiz extends BreedsQuiz {
-    constructor(name, catBreeds, dogBreeds) {
-        super(name);
+    constructor(name, theme, catBreeds, dogBreeds) {
+        super(name, theme);
         this.catBreeds = catBreeds;
         this.dogBreeds = dogBreeds;
         this.questions = [];
@@ -186,7 +188,7 @@ class MultipleAnimalsBreedsQuiz extends BreedsQuiz {
 
         // Show fact
         await getFact(result.animalType)
-            .then(fact => displayFact(fact, 'theme-purple', () => {
+            .then(fact => displayFact(fact, () => {
                 this.nextQuestion();
             }))
             .catch(err => this.nextQuestion());

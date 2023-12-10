@@ -94,7 +94,8 @@ function startSingleAnimalBreedsQuiz(animal) {
         .then(data => {
 
             const quizTitle = capitalizeFirstLetter(animal) + ' Quiz';
-            currentQuiz = new BreedsQuiz(quizTitle, data, animal);
+            const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
+            currentQuiz = new BreedsQuiz(quizTitle, theme, data, animal);
 
             currentQuiz.createQuestions(2);
             currentQuiz.start();
@@ -122,7 +123,7 @@ function startCatDogQuiz() {
         .then(data => {
 
             dogBreeds = data;
-            currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', catBreeds, dogBreeds);
+            currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', 'theme-pink', catBreeds, dogBreeds);
             currentQuiz.createQuestions(10);
 
             console.log(currentQuiz.questions)
@@ -154,6 +155,6 @@ window.onload = function () {
         });
     });
 
-    //displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-purple', null)
+    displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-pink', null)
 
 }

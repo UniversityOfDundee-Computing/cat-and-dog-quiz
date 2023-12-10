@@ -1,20 +1,20 @@
 .question-text{
     padding: 1rem;
     color: white;
-    background-color:  #6f42c1;
+    background-color:  var(--primary-color);
     border-radius: 5rem;
 }
 
 .question-answer{
     background-color: white;
-    border: 3px solid #6f42c1;
+    border: 3px solid var(--primary-color);
     border-radius: 1rem;
     padding: 1rem;
     font-size: 1.5rem;
 }
 
 .question-answer:hover:enabled {
-    background-color: #6f42c1;
+    background-color: var(--primary-color);
     color: white;
 }
 

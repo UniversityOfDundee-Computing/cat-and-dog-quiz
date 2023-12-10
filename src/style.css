@@ -2,6 +2,21 @@ body{
     color: white;
 }
 
+.theme-purple{
+    --primary-color: #6f42c1;
+    --font-color: white;
+}
+
+.theme-blue{
+    --primary-color: #007bff;
+    --font-color: white;
+}
+
+.theme-pink{
+    --primary-color: #e83e8c;
+    --font-color: white;
+}
+
 .navbar{
     border-radius: 0 0 1rem 1rem;
 }
@@ -27,31 +42,22 @@ h1, h2 {
     color: white;
 }
 
+
+
 .quiz-type{
-    /* background-color: #6cc3d5; */
     color: white;
     font-size: 2rem;
     border-radius: 1rem;
     border: none;
 }
 
-.theme-blue{
-    background-color: #007bff;
-}
-
-.theme-green{
-    background-color: #e83e8c;  
-}
-
-.theme-purple{
-    background-color: #6f42c1;
-}
 
 .quiz-type h2{
     color: white;
 }
 
 .start-quiz-btn{
+    background-color: var(--primary-color);
     color: white;
     font-size: 2rem;
     border-radius: 1rem;
@@ -78,59 +84,19 @@ h1, h2 {
     background-color: white;
 }
 
-/* .card-custom .button{
-    background-color: black;
+.card-header{
+    background-color: var(--primary-color);
+    color: white;
 }
-
-.theme-purple > .card-custom .button{
-    background-color: #6f42c1;
-    color: red;
-} */
 
 .button{
-    background-color: #6f42c1;
-    border: 1px solid #6f42c1;
-}
-
-.theme-purple .card-header{
-    background-color: #6f42c1;
-    color: white
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
 }
 
 .button:hover{
-    color: #6f42c1;;
-    border: 1px solid #6f42c1;
-}
-
-/* 
-.theme-purple > .card-custom{
-    background-color: #6f42c1;
-} */
-
-/* .theme-purple .button{
-    background-color: #6f42c1;
-    border: 1px solid #6f42c1;
-}
-
-.theme-purple .button:hover{
-    color: #6f42c1;;
-    border: 1px solid #6f42c1;
-}
-
-.theme-purple .card-custom{
-    border-color: #6f42c1;
     background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
 }
-
-.card-custom > .card-body{
-    background-color: white;
-}
-
-.theme-purple .card-custom > .card-header{
-    background-color: #6f42c1;
-    color: white;
-} */
-
-
-
-
