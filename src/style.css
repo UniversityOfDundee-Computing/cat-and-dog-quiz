@@ -5,3 +5,31 @@
 .hidden {
     display: none;
 }
+
+.quiz-type{
+    /* background-color: #6cc3d5; */
+    color: white;
+    border-radius: 1rem;
+}
+
+.bg-blue{
+    background-color: #007bff;
+}
+
+.bg-green{
+    background-color: #e83e8c;  
+}
+
+.bg-purple{
+    background-color: #6f42c1;
+}
+
+
+.quiz-type h2{
+    color: white;
+}
+
+.start-quiz-btn{
+    width: max-content;
+
+}
