@@ -9,32 +9,34 @@ var dogPoints = 0;
 
 var questions = []
 
+var currentQuiz;
 
-function generateQuestions(num) {
 
-    for (let i = 0; i < num; i++) {
+// function generateQuestions(num) {
 
-        let newQuestion;
+//     for (let i = 0; i < num; i++) {
 
-        // Distribute dog and cat questions evenly
-        if (i % 2 == 0) {
+//         let newQuestion;
 
-            var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
-            var possibleAnswers = getMultipleUniqueBreeds(catBreeds, 4, randomBreed.name);
+//         // Distribute dog and cat questions evenly
+//         if (i % 2 == 0) {
 
-            newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
+//             var randomBreed = catBreeds[Math.floor(Math.random() * catBreeds.length)];
+//             var possibleAnswers = getMultipleUniqueBreeds(catBreeds, 4, randomBreed.name);
 
-        } else {
+//             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
 
-            var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
-            var possibleAnswers = getMultipleUniqueBreeds(dogBreeds, 4, randomBreed.name);
+//         } else {
 
-            newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
-        }
+//             var randomBreed = dogBreeds[Math.floor(Math.random() * dogBreeds.length)];
+//             var possibleAnswers = getMultipleUniqueBreeds(dogBreeds, 4, randomBreed.name);
 
-        questions.push(newQuestion);
-    }
-}
+//             newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
+//         }
+
+//         questions.push(newQuestion);
+//     }
+// }
 
 function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
 
@@ -77,53 +79,53 @@ function getAnimal(breed, type) {
         .then(data => data)
 }
 
-function nextQuestion() {
+// function nextQuestion() {
 
-    // Remove any popups
-    document.getElementById('pop-up').innerHTML = '';
+//     // Remove any popups
+//     document.getElementById('pop-up').innerHTML = '';
 
-     // Determine next action
-    if (questions.length > 0) {
+//      // Determine next action
+//     if (questions.length > 0) {
 
-        var question = questions.pop();
-        var animalID;
+//         var question = questions.pop();
+//         var animalID;
     
-        if (question.animalType === 'dog')
-            animalID = findIdByName(dogBreeds, question.answer)
-        else
-            animalID = findIdByName(catBreeds, question.answer);
+//         if (question.animalType === 'dog')
+//             animalID = findIdByName(dogBreeds, question.answer)
+//         else
+//             animalID = findIdByName(catBreeds, question.answer);
     
-        getAnimal(animalID, question.animalType)
-            .then(data => {
-                question.displayQuestion(data[0].url);
-            })
+//         getAnimal(animalID, question.animalType)
+//             .then(data => {
+//                 question.displayQuestion(data[0].url);
+//             })
 
-    } else {
-        gameOver();
-    }
+//     } else {
+//         gameOver();
+//     }
 
-}
+// }
 
-async function handleAnswerResult(points, animalType) {
+// async function handleAnswerResult(points, animalType) {
 
-    if (animalType == 'dog')
-        dogPoints += points;
-    else if (animalType == 'cat')
-        catPoints += points;
+//     if (animalType == 'dog')
+//         dogPoints += points;
+//     else if (animalType == 'cat')
+//         catPoints += points;
 
-    // Delay
-    await delay(1000);
+//     // Delay
+//     await delay(1000);
 
-    // Show fact
-    await getFact(animalType)
-    .then(fact => displayFact(fact))
-    .catch(err => nextQuestion());
-}
+//     // Show fact
+//     await getFact(animalType)
+//     .then(fact => displayFact(fact))
+//     .catch(err => nextQuestion());
+// }
 
-function gameOver() {
-    var result = determinePersonType(catPoints, dogPoints);
-    displayGameOver(result);
-}
+// function gameOver() {
+//     var result = determinePersonType(catPoints, dogPoints);
+//     displayGameOver(result);
+// }
 
 function displayGameOver(result) {
 
@@ -189,23 +191,23 @@ function determinePersonType(catPoints, dogPoints) {
 
 function startQuiz() {
 
-    getBreeds('cat')
-        .then(data => {
-            catBreeds = data;
-            return getBreeds('dog');
-        })
-        .then(data => {
-            dogBreeds = data;
-        })
-        .then(() => {
-            generateQuestions(4);
-        })
-        .then(() => {
-            nextQuestion();
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    // getBreeds('cat')
+    //     .then(data => {
+    //         catBreeds = data;
+    //         return getBreeds('dog');
+    //     })
+    //     .then(data => {
+    //         dogBreeds = data;
+    //     })
+    //     .then(() => {
+    //         generateQuestions(4);
+    //     })
+    //     .then(() => {
+    //         nextQuestion();
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
 }
 
 window.onload = function () {
@@ -216,15 +218,28 @@ window.onload = function () {
     //     deleteElementById('start-quiz-btn');
     // });
 
-    getBreeds('cat')
+    const animalType = 'dog';
+
+    getBreeds(animalType)
     .then(data => {
-        var catQuiz = new BreedsQuiz(data, 'cat');
-        catQuiz.createQuestions(10);
-        catQuiz.start();
-    })        
+        currentQuiz = new BreedsQuiz(data, animalType);
+        currentQuiz.createQuestions(2);
+
+        console.log(currentQuiz.questions)
+
+        currentQuiz.start();
+    })     
+    .then(() => {
+
+        document.addEventListener('answerCheckResult', (data) => {
+            currentQuiz.handleAnswerResult(data.detail.points);
+        });
+
+    })   
     .catch(err => {
         console.log(err);
     })
+
 
 
 
@@ -232,7 +247,3 @@ window.onload = function () {
 
 
 
-document.addEventListener('answerCheckResult', (data) => {
-    handleAnswerResult(data.detail.points, data.detail.animalType);
-
-});

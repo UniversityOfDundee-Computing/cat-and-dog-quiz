@@ -22,16 +22,7 @@ async function getFact(animalType) {
 
 }
 
-async function displayFactWithDelay(fact, delayTime){
-
-    displayFact(fact);
-
-    await delay(delayTime);
-
-    deleteElementById('fact');
-}
-
-function displayFact(fact) {
+function displayFact(fact, callback) {
 
     // Remove any popups
     document.getElementById('pop-up').innerHTML = '';
@@ -60,7 +51,7 @@ function displayFact(fact) {
     btn.className = 'btn btn-primary col-lg-4 col-sm-12 mb-3';
     btn.innerHTML = 'Next Question';
 
-    btn.addEventListener('click', nextQuestion);
+    btn.addEventListener('click', callback);
 
     // Create card body
     cardBody.appendChild(cardTitle);

@@ -14,17 +14,23 @@ class Quiz {
 
     nextQuestion(){}
 
-    gameOver(){}
+    checkAnswer(){}
+
+    gameOver(){
+
+        console.log('game over');
+
+    }
 
 }
 
 class BreedsQuiz extends Quiz {
-
     constructor(breeds, animalType) {
         super();
         this.animalType = animalType;
         this.breeds = breeds;
         this.questions = [];
+        this.points = 0;
     }
 
     createQuestions(amount) {
@@ -44,11 +50,13 @@ class BreedsQuiz extends Quiz {
         // Remove any popups
         document.getElementById('pop-up').innerHTML = '';
 
+        console.log(this.questions)
+
         // Determine next action
         if (this.questions.length > 0) {
 
-            var question = this.questions.pop();
-            var animalID = findIdByName(this.breeds, question.answer);
+            const question = this.questions.pop();
+            const animalID = findIdByName(this.breeds, question.answer);
 
             getAnimal(animalID, this.animalType)
                 .then(data => {
@@ -56,9 +64,24 @@ class BreedsQuiz extends Quiz {
                 })
 
         } else {
-            gameOver();
+            this.gameOver();
         }
 
+    }
+
+    async handleAnswerResult(points) {
+
+        this.points += points;
+    
+        // Delay
+        await delay(1000);
+    
+        // Show fact
+        await getFact(this.animalType)
+        .then(fact => displayFact(fact, () => {
+            this.nextQuestion();
+        }))
+        .catch(err => this.nextQuestion());
     }
 
 }
