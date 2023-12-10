@@ -1,8 +1,9 @@
 class Question {
-    constructor(question, answer, animalType) {
+    constructor(question, answer, animalType, animalID) {
         this.question = question;
         this.answer = answer;
         this.animalType = animalType;
+        this.animalID = animalID;
     }
 
     displayQuestion(imgUrl) {
@@ -32,8 +33,8 @@ class Question {
 
 class MultipleChoiceQuestion extends Question {
 
-    constructor(question, answer, possibleAnswers, animalType) {
-        super(question, answer, animalType);
+    constructor(question, answer, possibleAnswers, animalType, animalID) {
+        super(question, answer, animalType, animalID);
         this.possibleAnswers = possibleAnswers;
     }
 

@@ -4,10 +4,10 @@ class Quiz {
         this.questions = [];
     }
 
-    createQuestions(amount){}
+    createQuestions(amount) { }
 
     start() {
-        if (this.questions.length > 0){
+        if (this.questions.length > 0) {
             this.displayQuiz();
             this.nextQuestion();
         }
@@ -15,21 +15,21 @@ class Quiz {
             console.log('No Questions Present');
     }
 
-    displayQuiz(){
+    displayQuiz() {
         document.getElementById('quiz-header').textContent = this.name;
         document.getElementById('quiz').classList.remove('hidden');
 
     }
 
-    nextQuestion(){}
+    nextQuestion() { }
 
-    checkAnswer(){}
+    checkAnswer() { }
 
-    quizOver(){
+    quizOver() {
         console.log('game over');
     }
 
-    determineOutcome(){}
+    determineOutcome() { }
 
 }
 
@@ -49,7 +49,7 @@ class BreedsQuiz extends Quiz {
             var randomBreed = this.breeds[Math.floor(Math.random() * this.breeds.length)];
             var possibleAnswers = getMultipleUniqueBreeds(this.breeds, 4, randomBreed.name);
 
-            let newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, this.animalType);
+            let newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, this.animalType, randomBreed.id);
             this.questions.push(newQuestion);
         }
 
@@ -61,18 +61,11 @@ class BreedsQuiz extends Quiz {
         // Remove any popups
         document.getElementById('pop-up').innerHTML = '';
 
-        console.log(this.questions)
-
         // Determine next action
         if (this.questions.length > 0) {
 
             const question = this.questions.pop();
-            const animalID = findIdByName(this.breeds, question.answer);
-
-            getAnimal(animalID, this.animalType)
-                .then(data => {
-                    question.displayQuestion(data[0].url);
-                })
+            this.displayQuestion(question);
 
         } else {
             this.quizOver();
@@ -80,22 +73,35 @@ class BreedsQuiz extends Quiz {
 
     }
 
-    async handleAnswerResult(points) {
-
-        this.points += points;
-    
-        // Delay
-        await delay(1000);
-    
-        // Show fact
-        await getFact(this.animalType)
-        .then(fact => displayFact(fact, () => {
-            this.nextQuestion();
-        }))
-        .catch(err => this.nextQuestion());
+    displayQuestion(question) {
+        getAnimalDetails(question.animalID, question.animalType)
+            .then(data => {
+                question.displayQuestion(data[0].url);
+            })
     }
 
-    quizOver(){
+    findIDofBreed(name) {
+        // console.log(name);
+        var result = list.find(item => item.name === name);
+        return result.id;
+    }
+
+    async handleAnswerResult(result) {
+
+        this.points += result.points;
+
+        // Delay
+        await delay(1000);
+
+        // Show fact
+        await getFact(this.animalType)
+            .then(fact => displayFact(fact, () => {
+                this.nextQuestion();
+            }))
+            .catch(err => this.nextQuestion());
+    }
+
+    quizOver() {
 
         // Create the paragraph 
         var par = document.createElement('p');
@@ -109,7 +115,7 @@ class BreedsQuiz extends Quiz {
 
     }
 
-    determineOutcome(){
+    determineOutcome() {
 
         const points = this.points;
         const maxScore = this.questionAmount;
@@ -122,10 +128,10 @@ class BreedsQuiz extends Quiz {
             return 'Sad Person';
         // else if (points > maxScore/2)
         //     return 'Duke of ' + animalType;
-        else if (points >= maxScore/2)
+        else if (points >= maxScore / 2)
             return 'Knight of ' + animalType;
-        else if (points < maxScore/2)
-             return 'Squire of ' + animalType;
+        else if (points < maxScore / 2)
+            return 'Squire of ' + animalType;
         else
             return 'Sad Person';
 
@@ -133,7 +139,7 @@ class BreedsQuiz extends Quiz {
 
 }
 
-class MultipleAnimalsBreedsQuiz extends BreedsQuiz{
+class MultipleAnimalsBreedsQuiz extends BreedsQuiz {
     constructor(name, catBreeds, dogBreeds) {
         super(name);
         this.catBreeds = catBreeds;
@@ -149,15 +155,17 @@ class MultipleAnimalsBreedsQuiz extends BreedsQuiz{
 
             var newQuestion;
 
-            if(i % 2 === 0){
+            if (i % 2 === 0) {
                 var randomBreed = this.catBreeds[Math.floor(Math.random() * this.catBreeds.length)];
                 var possibleAnswers = getMultipleUniqueBreeds(this.catBreeds, 4, randomBreed.name);
-                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat');
+
+                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat', randomBreed.id);
             }
-            else{
+            else {
                 var randomBreed = this.dogBreeds[Math.floor(Math.random() * this.dogBreeds.length)];
                 var possibleAnswers = getMultipleUniqueBreeds(this.dogBreeds, 4, randomBreed.name);
-                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog');
+
+                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog', randomBreed.id);
             }
 
             this.questions.push(newQuestion);
@@ -165,4 +173,42 @@ class MultipleAnimalsBreedsQuiz extends BreedsQuiz{
 
         this.questionAmount = this.questions.length;
     }
+
+    async handleAnswerResult(result) {
+
+        if (result.animalType == 'dog')
+            this.dogPoints += result.points;
+        else if (result.animalType == 'cat')
+            this.catPoints += result.points;
+
+        // Delay
+        await delay(1000);
+
+        // Show fact
+        await getFact(result.animalType)
+            .then(fact => displayFact(fact, () => {
+                this.nextQuestion();
+            }))
+            .catch(err => this.nextQuestion());
+    }
+
+    determineOutcome() {
+
+        const catPoints = this.catPoints;
+        const dogPoints = this.dogPoints;
+        const maxScore = this.questionAmount;
+
+        if (catPoints == 0 && dogPoints == 0)
+            return 'Sad Person'
+        else if (catPoints == dogPoints)
+            return 'Cat-Dog Person';
+        else if (catPoints > dogPoints)
+            return 'Cat Person';
+        else if (dogPoints > catPoints)
+            return 'Dog Person';
+        else
+            return '???????';
+
+    }
+
 }

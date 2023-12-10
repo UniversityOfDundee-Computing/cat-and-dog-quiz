@@ -4,11 +4,6 @@ const dogApiKey = 'live_i7mLqdlkY1JrPjPa2AgThy3OXU8jmZQLYMW74Pu2I4Fvl126MqbbLtfx
 var catBreeds;
 var dogBreeds;
 
-var catPoints = 0;
-var dogPoints = 0;
-
-var questions = []
-
 var currentQuiz;
 
 function displayAvailableQuizzes(){
@@ -49,7 +44,7 @@ async function getBreeds(animal) {
         })
 }
 
-function getAnimal(breed, type) {
+function getAnimalDetails(breed, type) {
 
     var api = type == 'dog' ? dogApiKey : catApiKey;
 
@@ -58,53 +53,6 @@ function getAnimal(breed, type) {
         .then(data => data)
 }
 
-// function nextQuestion() {
-
-//     // Remove any popups
-//     document.getElementById('pop-up').innerHTML = '';
-
-//      // Determine next action
-//     if (questions.length > 0) {
-
-//         var question = questions.pop();
-//         var animalID;
-    
-//         if (question.animalType === 'dog')
-//             animalID = findIdByName(dogBreeds, question.answer)
-//         else
-//             animalID = findIdByName(catBreeds, question.answer);
-    
-//         getAnimal(animalID, question.animalType)
-//             .then(data => {
-//                 question.displayQuestion(data[0].url);
-//             })
-
-//     } else {
-//         gameOver();
-//     }
-
-// }
-
-// async function handleAnswerResult(points, animalType) {
-
-//     if (animalType == 'dog')
-//         dogPoints += points;
-//     else if (animalType == 'cat')
-//         catPoints += points;
-
-//     // Delay
-//     await delay(1000);
-
-//     // Show fact
-//     await getFact(animalType)
-//     .then(fact => displayFact(fact))
-//     .catch(err => nextQuestion());
-// }
-
-// function gameOver() {
-//     var result = determinePersonType(catPoints, dogPoints);
-//     displayGameOver(result);
-// }
 
 function displayGameOver(resultElement) {
 
@@ -144,21 +92,6 @@ function displayGameOver(resultElement) {
 
 }
 
-function determinePersonType(catPoints, dogPoints) {
-
-    if (catPoints == 0 && dogPoints == 0)
-        return 'Sad Person'
-    else if (catPoints == dogPoints)
-        return 'Cat-Dog Person';
-    else if (catPoints > dogPoints)
-        return 'Cat Person';
-    else if (dogPoints > catPoints)
-        return 'Dog Person';
-    else
-        return '???????';
-}
-
-
 function startQuiz(quiz) {
 
     console.log(quiz);
@@ -196,22 +129,16 @@ function startQuiz(quiz) {
 
 
         var catBreeds;
-        var dogBreeds;
 
         getBreeds('cat')
         .then(data => {
             catBreeds = data;
             return getBreeds('dog');
-
-            currentQuiz = new BreedsQuiz(quiz + ' Quiz', data, quiz);
-            currentQuiz.createQuestions(2);
-
-            console.log(currentQuiz.questions)
-
-            currentQuiz.start();
         })   
         .then(data => {
-            currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', catBreeds, data);
+
+            dogBreeds = data;
+            currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', catBreeds, dogBreeds);
             currentQuiz.createQuestions(4);
 
             console.log(currentQuiz.questions)
@@ -222,7 +149,7 @@ function startQuiz(quiz) {
         .then(() => {
 
             document.addEventListener('answerCheckResult', (data) => {
-                currentQuiz.handleAnswerResult(data.detail.points);
+                currentQuiz.handleAnswerResult(data.detail);
             });
 
         })   
