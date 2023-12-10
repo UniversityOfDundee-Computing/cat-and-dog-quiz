@@ -6,33 +6,10 @@ var dogBreeds;
 
 var currentQuiz;
 
-function displayAvailableQuizzes(){
+function displayAvailableQuizzes() {
     document.getElementById('quizzes').classList.remove('hidden');
     document.getElementById('quiz').classList.add('hidden');
     document.getElementById('pop-up').classList.add('hidden');
-}
-
-function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
-
-    var uniqueBreeds = [];
-    var breeds = animalBreeds;
-
-    // Include breed if passed
-    if (includedBreed != null)
-        uniqueBreeds.push(includedBreed);
-
-    // Get unique breeds
-    while (uniqueBreeds.length < amount) {
-        var ranIndex = Math.floor(Math.random() * breeds.length);
-
-        const newBreed = breeds.splice(ranIndex, 1)[0];
-
-        // Check if breed already exists in unique breeds
-        if (!uniqueBreeds.includes(newBreed.name))
-            uniqueBreeds.push(newBreed.name);
-    }
-
-    return shuffle(uniqueBreeds);
 }
 
 
@@ -94,71 +71,75 @@ function displayGameOver(resultElement) {
 
 function startQuiz(quiz) {
 
-    console.log(quiz);
+    document.getElementById('quizzes').classList.add('hidden');
 
-    if(currentQuiz != null){
+    if (currentQuiz != null) {
         document.removeEventListener('answerCheckResult', (data) => {
             currentQuiz.handleAnswerResult(data.detail.points);
         });
     }
 
-    if (quiz === 'cat' || quiz === 'dog'){
+    if (quiz === 'cat' || quiz === 'dog') {
+        startSingleAnimalBreedsQuiz(quiz);
+    }
+    else if (quiz === 'cat-dog') {
+        startCatDogQuiz();
+    }
 
-        getBreeds(quiz)
+}
+
+function startSingleAnimalBreedsQuiz(animal) {
+
+    getBreeds(animal)
         .then(data => {
 
-            currentQuiz = new BreedsQuiz(quiz + ' Quiz', data, quiz);
+            const quizTitle = capitalizeFirstLetter(animal) + ' Quiz';
+            currentQuiz = new BreedsQuiz(quizTitle, data, animal);
+
             currentQuiz.createQuestions(2);
-
-            console.log(currentQuiz.questions)
-
             currentQuiz.start();
-        })     
+        })
         .then(() => {
 
             document.addEventListener('answerCheckResult', (data) => {
                 currentQuiz.handleAnswerResult(data.detail.points);
             });
 
-        })   
+        })
         .catch(err => {
             console.log(err);
         })
-    }
-    else if (quiz === 'cat-dog'){
+}
 
+function startCatDogQuiz() {
+    var catBreeds;
 
-        var catBreeds;
-
-        getBreeds('cat')
+    getBreeds('cat')
         .then(data => {
             catBreeds = data;
             return getBreeds('dog');
-        })   
+        })
         .then(data => {
 
             dogBreeds = data;
             currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', catBreeds, dogBreeds);
-            currentQuiz.createQuestions(4);
+            currentQuiz.createQuestions(10);
 
             console.log(currentQuiz.questions)
 
             currentQuiz.start();
 
-        })  
+        })
         .then(() => {
 
             document.addEventListener('answerCheckResult', (data) => {
                 currentQuiz.handleAnswerResult(data.detail);
             });
 
-        })   
+        })
         .catch(err => {
             console.log(err);
         })
-
-    }
-
 }
 
 window.onload = function () {

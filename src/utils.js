@@ -5,13 +5,6 @@ function delay(milliseconds) {
     });
 }
 
-function findIdByName(list, name) {
-
-    // console.log(name);
-    var result = list.find(item => item.name === name);
-    return result.id;
-}
-
 function dispatchAnswerCheckResultEvent(animaType, points) {
 
     const answerCheckResult = new CustomEvent('answerCheckResult', {
@@ -75,4 +68,27 @@ function deleteElementById(id) {
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
+
+    var uniqueBreeds = [];
+    var breeds = animalBreeds;
+
+    // Include breed if passed
+    if (includedBreed != null)
+        uniqueBreeds.push(includedBreed);
+
+    // Get unique breeds
+    while (uniqueBreeds.length < amount) {
+        var ranIndex = Math.floor(Math.random() * breeds.length);
+
+        const newBreed = breeds.splice(ranIndex, 1)[0];
+
+        // Check if breed already exists in unique breeds
+        if (!uniqueBreeds.includes(newBreed.name))
+            uniqueBreeds.push(newBreed.name);
+    }
+
+    return shuffle(uniqueBreeds);
 }

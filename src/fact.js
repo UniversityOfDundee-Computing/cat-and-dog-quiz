@@ -1,6 +1,6 @@
 async function getFact(animalType) {
 
-    const maxRetries = 50;
+    const maxRetries = 15;
 
     var retries = 0;
     var foundValidFact = false;
@@ -14,6 +14,7 @@ async function getFact(animalType) {
             return data.text;
         }
         else {
+            console.log('ATTEMPT ' + retries)
             retries++;
         }
     }
