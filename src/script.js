@@ -193,7 +193,7 @@ function startQuiz(type) {
         getBreeds(type)
         .then(data => {
 
-            currentQuiz = new BreedsQuiz(data, type);
+            currentQuiz = new BreedsQuiz(type + ' Quiz', data, type);
             currentQuiz.createQuestions(2);
 
             console.log(currentQuiz.questions)

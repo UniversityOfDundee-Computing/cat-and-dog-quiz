@@ -1,5 +1,6 @@
 class Quiz {
-    constructor() {
+    constructor(name) {
+        this.name = name;
         this.questions = [];
     }
 
@@ -15,7 +16,7 @@ class Quiz {
     }
 
     displayQuiz(){
-        document.getElementById('quiz-header').textContent = 'QUIZ X';
+        document.getElementById('quiz-header').textContent = this.name;
         document.getElementById('quiz').classList.toggle('hidden');
     }
 
@@ -32,8 +33,8 @@ class Quiz {
 }
 
 class BreedsQuiz extends Quiz {
-    constructor(breeds, animalType) {
-        super();
+    constructor(name, breeds, animalType) {
+        super(name);
         this.animalType = animalType;
         this.breeds = breeds;
         this.questions = [];
