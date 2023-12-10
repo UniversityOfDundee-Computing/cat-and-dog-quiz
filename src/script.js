@@ -210,11 +210,23 @@ function startQuiz() {
 
 window.onload = function () {
 
-    //displayFact('Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nemo eius consectetur voluptatem labore corrupti ipsum tempore. Iusto, nobis sunt. Reiciendis vel eligendi dolor nihil, est nulla enim voluptatem reprehenderit!')
-    document.getElementById('start-quiz-btn').addEventListener('click', () => {
-        startQuiz();
-        deleteElementById('start-quiz-btn');
-    });
+    // //displayFact('Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nemo eius consectetur voluptatem labore corrupti ipsum tempore. Iusto, nobis sunt. Reiciendis vel eligendi dolor nihil, est nulla enim voluptatem reprehenderit!')
+    // document.getElementById('start-quiz-btn').addEventListener('click', () => {
+    //     startQuiz();
+    //     deleteElementById('start-quiz-btn');
+    // });
+
+    getBreeds('cat')
+    .then(data => {
+        var catQuiz = new BreedsQuiz(data, 'cat');
+        catQuiz.createQuestions(10);
+        catQuiz.start();
+    })        
+    .catch(err => {
+        console.log(err);
+    })
+
+
 
 }
 
