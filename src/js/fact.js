@@ -23,14 +23,14 @@ async function getFact(animalType) {
 
 }
 
-function displayFact(fact, theme, callback) {
+function displayFact(fact, callback) {
 
     // Remove any popups
     document.getElementById('pop-up').innerHTML = '';
 
     // Create card container
     var cardDiv = document.createElement('div');
-    cardDiv.className = 'card card-custom ' + theme;
+    cardDiv.className = 'card card-custom';
     cardDiv.id = 'fact';
 
     var cardHeader = document.createElement('div');

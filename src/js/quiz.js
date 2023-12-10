@@ -17,7 +17,7 @@ class Quiz {
     }
 
     displayQuiz() {
-        document.getElementById('quiz').classList.add(this.theme);
+        document.body.className = `bg ${this.theme}`;
         document.getElementById('quiz-header').textContent = this.name;
         document.getElementById('quiz').classList.remove('hidden');
 
@@ -78,7 +78,7 @@ class BreedsQuiz extends Quiz {
     displayQuestion(question) {
         getAnimalDetails(question.animalID, question.animalType)
             .then(data => {
-                question.displayQuestion(data[0].url, this.theme);
+                question.displayQuestion(data[0].url);
             })
     }
 
