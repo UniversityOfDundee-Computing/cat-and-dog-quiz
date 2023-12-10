@@ -1,3 +1,20 @@
+body{
+    color: white;
+}
+
+.navbar{
+    border-radius: 0 0 1rem 1rem;
+}
+
+.bg{
+    height: 100vh;
+    background-image: url('assets/layered-waves-haikei.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+
 #pop-up{
     position: fixed;
 }
@@ -6,24 +23,27 @@
     display: none;
 }
 
+#quizzes h1, h2 {
+    color: white;
+}
+
 .quiz-type{
     /* background-color: #6cc3d5; */
     color: white;
     border-radius: 1rem;
 }
 
-.bg-blue{
+.theme-blue{
     background-color: #007bff;
 }
 
-.bg-green{
+.theme-green{
     background-color: #e83e8c;  
 }
 
-.bg-purple{
+.theme-purple{
     background-color: #6f42c1;
 }
-
 
 .quiz-type h2{
     color: white;
@@ -32,4 +52,17 @@
 .start-quiz-btn{
     width: max-content;
 
+}
+
+.quiz-type {
+    -webkit-filter: brightness(100%);
+}
+
+.quiz-type:hover {
+    -webkit-filter: brightness(70%);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
 }
