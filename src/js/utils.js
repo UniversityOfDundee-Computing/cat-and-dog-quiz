@@ -106,8 +106,22 @@ function updateGameOver(scoreElement, result){
 }
 
 
-
 function saveQuiz(quiz){
-    const quizString = JSON.stringify(quiz)
+    const quizString = JSON.stringify(quiz);
     window.localStorage.setItem('activeQuiz', quizString);
+}
+
+function loadQuiz(){
+
+    var quizData = window.localStorage.getItem('activeQuiz');
+    console.log(quiz)
+
+    if (quizData){
+        console.log('QUIZ LOADED')
+        var parsedQuizData = JSON.parse(quizData);
+
+        currentQuiz = new BreedsQuiz(quizData);
+        currentQuiz.start();
+    }
+
 }
