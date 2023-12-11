@@ -110,28 +110,32 @@ function startCatDogQuiz() {
 window.onload = function () {
 
 
-    displayAvailableQuizzes();
+    // displayAvailableQuizzes();
 
-    var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
+    // var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
 
-    startQuizBtns = Array.from(startQuizBtns);
+    // startQuizBtns = Array.from(startQuizBtns);
 
-    startQuizBtns.forEach(button => {
+    // startQuizBtns.forEach(button => {
 
-        button.addEventListener('click', (event) => {
-            startQuiz(event.target.value);
-        });
-    });
+    //     button.addEventListener('click', (event) => {
+    //         startQuiz(event.target.value);
+    //     });
+    // });
 
-    document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
+    // document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
 
 
-    // getBreeds('cat')
-    //     .then(data => {
-    //         var quiz = new BreedsQuiz('test', 'none', data, 'cat');
-    //         quiz.createQuestions(10);
-    //         saveQuiz(quiz)
-    //     })
+    getBreeds('cat')
+        .then(data => {
+
+            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, 'cat');
+
+            console.log(questions);
+            // var quiz = new BreedsQuiz('test', 'none', data, 'cat');
+            // quiz.createQuestions(10);
+            // saveQuiz(quiz)
+        })
 
 
     //displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-pink', null)
