@@ -100,9 +100,9 @@ class BreedsQuiz extends Quiz {
     quizOver() {
 
         // Create the paragraph 
-        var par = document.createElement('p');
-        par.textContent = 'Cat: 10';
-        updateGameOver(par, 'GOD');
+        var scores = document.createElement('p');
+        scores.textContent = `${this.animalType}: ${this.points}`;
+        updateGameOver(scores, this.determineOutcome());
     }
 
     determineOutcome() {

@@ -61,7 +61,7 @@ function startSingleAnimalBreedsQuiz(animal) {
             const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
             currentQuiz = new BreedsQuiz(quizTitle, theme, data, animal);
 
-            currentQuiz.createQuestions(2);
+            currentQuiz.createQuestions(10);
             currentQuiz.start();
         })
         .then(() => {

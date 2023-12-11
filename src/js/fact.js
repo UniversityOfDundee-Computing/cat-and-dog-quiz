@@ -36,6 +36,7 @@ function updateFact(fact, callback){
     btn.type = 'button';
     btn.className = 'button';
     btn.innerHTML = 'Next';
+    btn.id = 'next-question-btn';
 
     btn.addEventListener('click', callback);
     document.getElementById('fact-btns').appendChild(btn);
