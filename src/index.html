@@ -52,7 +52,7 @@
     <main class="container">
 
 
-        <div id="quizzes" class="mt-5">
+        <div id="quizzes" class="mt-5 hidden">
 
             <h1 class="text-center">Pick your Quiz</h1>
 
@@ -76,7 +76,7 @@
         </div>
 
 
-        <section id="quiz" class="hidden">
+        <section id="quiz" class="">
 
             <h1 id="quiz-header" class="text-center mt-5 ">QUIZ</h1>
 
@@ -100,29 +100,44 @@
 
             </section>
 
-            <div id="pop-up" class="position-absolute top-50 start-50 translate-middle">
+            <div id="game-over" class="card theme-blue position-absolute top-50 start-50 translate-middle">
 
-                <!-- <div class="card">
-                    <div class="card-header text-center">Fact!</div>
-                    <div class="card-body">
-                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis a
-                            dolorem commodi deleniti debitis necessitatibus quibusdam, eum modi est, et vero ea, quia libero
-                            reprehenderit omnis? Natus ut illo fugit?</p>
-    
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="button">Next</button>
-                        </div>
-    
+                <div class="card-header text-center">Game Over</div>
+                <div class="card-body text-center px-5">
+
+                    <p class="card-text">Score:</p>
+                    <p id="score" class="my-0">10/100</p>
+                    <p class="card-text mt-2 mb-0">You received the rank of....</p>
+                    <h3 id="rank" class="mt-2 mb-5">God of Cats!</h3>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="button">Return</button>
                     </div>
-                </div> -->
-    
+
+                </div>
+
+            </div>
+
+            <div id="fact" class="card position-absolute top-50 start-50 translate-middle">
+                <div class="card-header text-center">Fact!</div>
+
+                <div class="card-body">
+
+                    <p id="fact-text" class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis a
+                        dolorem commodi deleniti debitis necessitatibus quibusdam, eum modi est, et vero ea, quia
+                        libero
+                        reprehenderit omnis? Natus ut illo fugit?</p>
+
+                    <div id="fact-btns" class="d-flex justify-content-end">
+                        <button id="next-question-btn" type="button" class="button">Next</button>
+                    </div>
+
+                </div>
+
+
             </div>
 
         </section>
-
-
-
-
 
     </main>
 

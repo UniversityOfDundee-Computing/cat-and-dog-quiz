@@ -92,3 +92,15 @@ function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
 
     return shuffle(uniqueBreeds);
 }
+
+function hidePopUp(){
+    document.getElementById('fact').classList.add('hidden');
+    document.getElementById('game-over').classList.add('hidden');
+}
+
+function updateGameOver(scoreElement, result){
+
+    document.getElementById('game-over').classList.remove('hidden');
+    document.getElementById('score').append(scoreElement);
+    document.getElementById('rank').innerText = result;
+}

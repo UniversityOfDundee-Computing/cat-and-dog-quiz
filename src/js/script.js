@@ -8,8 +8,10 @@ var currentQuiz;
 
 function displayAvailableQuizzes() {
     document.getElementById('quizzes').classList.remove('hidden');
+
     document.getElementById('quiz').classList.add('hidden');
-    document.getElementById('pop-up').classList.add('hidden');
+    document.getElementById('game-over').classList.add('hidden');
+
 }
 
 
@@ -30,44 +32,6 @@ function getAnimalDetails(breed, type) {
         .then(data => data)
 }
 
-
-function displayGameOver(resultElement) {
-
-    // Remove any popups
-    document.getElementById('pop-up').innerHTML = '';
-
-    // Create card container
-    var cardDiv = document.createElement('div');
-    cardDiv.classList.add('card', 'text-white', 'bg-success', 'mb-3');
-
-    // Create the card header
-    var cardHeader = document.createElement('div');
-    cardHeader.classList.add('card-header', 'text-center');
-    cardHeader.textContent = 'Game Over';
-
-    // Create the card body element
-    var cardBody = document.createElement('div');
-    cardBody.classList.add('card-body', 'text-center');
-
-    // Create button element
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn btn-primary col-lg-4 col-sm-12';
-    btn.innerHTML = 'Home';
-
-    btn.addEventListener('click', displayAvailableQuizzes);
-
-    // Create card body
-    cardBody.appendChild(resultElement);
-    cardBody.appendChild(btn);
-
-    // Create card
-    cardDiv.appendChild(cardHeader);
-    cardDiv.appendChild(cardBody);
-
-    document.getElementById('pop-up').appendChild(cardDiv)
-
-}
 
 function startQuiz(quiz) {
 
@@ -144,6 +108,10 @@ function startCatDogQuiz() {
 }
 
 window.onload = function () {
+
+
+    displayAvailableQuizzes();
+
     var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
 
     startQuizBtns = Array.from(startQuizBtns);
@@ -156,5 +124,12 @@ window.onload = function () {
     });
 
     //displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-pink', null)
+
+    // var test = document.createElement('p');
+    // test.textContent = 'HELLO';
+
+    // displayGameOver(test, 'GOd of ROdents');
+
+    // updateFact('TESTING', null);
 
 }

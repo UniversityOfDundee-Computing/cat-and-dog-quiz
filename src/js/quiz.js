@@ -17,6 +17,7 @@ class Quiz {
     }
 
     displayQuiz() {
+        hidePopUp();
         document.body.className = `bg ${this.theme}`;
         document.getElementById('quiz-header').textContent = this.name;
         document.getElementById('quiz').classList.remove('hidden');
@@ -60,8 +61,7 @@ class BreedsQuiz extends Quiz {
 
     nextQuestion() {
 
-        // Remove any popups
-        document.getElementById('pop-up').innerHTML = '';
+        hidePopUp();
 
         // Determine next action
         if (this.questions.length > 0) {
@@ -82,12 +82,6 @@ class BreedsQuiz extends Quiz {
             })
     }
 
-    findIDofBreed(name) {
-        // console.log(name);
-        var result = list.find(item => item.name === name);
-        return result.id;
-    }
-
     async handleAnswerResult(result) {
 
         this.points += result.points;
@@ -97,7 +91,7 @@ class BreedsQuiz extends Quiz {
 
         // Show fact
         await getFact(this.animalType)
-            .then(fact => displayFact(fact, () => {
+            .then(fact => updateFact(fact, () => {
                 this.nextQuestion();
             }))
             .catch(err => this.nextQuestion());
@@ -109,11 +103,13 @@ class BreedsQuiz extends Quiz {
         var par = document.createElement('p');
         par.textContent = 'You are a .....';
 
+
+
         var cardTitle = document.createElement('h4');
         cardTitle.classList.add('card-title');
         cardTitle.textContent = this.determineOutcome();
 
-        displayGameOver(cardTitle);
+        updateGameOver(par, cardTitle);
 
     }
 
