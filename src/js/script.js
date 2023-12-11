@@ -64,7 +64,7 @@ function startSingleAnimalBreedsQuiz(animal) {
             const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
 
             // Create questions
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, animal);
+            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 2, animal);
 
             currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
 
@@ -93,11 +93,16 @@ function startCatDogQuiz() {
         })
         .then(data => {
 
-            dogBreeds = data;
-            currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', 'theme-pink', catBreeds, dogBreeds);
-            currentQuiz.createQuestions(4);
+            // Create quiz name
+            const quizTitle = 'Cat-Dog Quiz';
 
-            console.log(currentQuiz.questions)
+            // Determine theme based on animal type
+            const theme = 'theme-pink'; 
+
+            // Create questions
+            const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 2);
+
+            currentQuiz = new CatDogQuiz(quizTitle, theme, questions);
 
             currentQuiz.start();
 
