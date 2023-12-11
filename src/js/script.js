@@ -88,7 +88,7 @@ function startCatDogQuiz() {
 
             dogBreeds = data;
             currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', 'theme-pink', catBreeds, dogBreeds);
-            currentQuiz.createQuestions(10);
+            currentQuiz.createQuestions(4);
 
             console.log(currentQuiz.questions)
 

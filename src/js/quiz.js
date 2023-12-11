@@ -176,10 +176,28 @@ class MultipleAnimalsBreedsQuiz extends BreedsQuiz {
 
         // Show fact
         await getFact(result.animalType)
-            .then(fact => displayFact(fact, () => {
+            .then(fact => updateFact(fact, () => {
                 this.nextQuestion();
             }))
             .catch(err => this.nextQuestion());
+    }
+
+    quizOver() {
+
+        // Create the paragraph 
+
+        var scoresContainer = document.createElement('div');
+
+        var catScores = document.createElement('p');
+        catScores.textContent = `${'Cat'}: ${this.catPoints}`;
+
+        var dogScores = document.createElement('p');
+        dogScores.textContent = `${'Dog'}: ${this.dogPoints}`;
+
+        scoresContainer.appendChild(catScores);
+        scoresContainer.appendChild(dogScores);
+
+        updateGameOver(scoresContainer, this.determineOutcome());
     }
 
     determineOutcome() {

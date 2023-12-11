@@ -100,3 +100,8 @@ h1, h2 {
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
 }
+
+
+#game-over p{
+    margin-bottom: 0;
+} 
