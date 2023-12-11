@@ -104,3 +104,10 @@ function updateGameOver(scoreElement, result){
     document.getElementById('score').append(scoreElement);
     document.getElementById('rank').innerText = result;
 }
+
+
+
+function saveQuiz(quiz){
+    const quizString = JSON.stringify(quiz)
+    window.localStorage.setItem('activeQuiz', quizString);
+}

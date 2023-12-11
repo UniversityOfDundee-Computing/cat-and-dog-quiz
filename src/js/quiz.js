@@ -66,6 +66,7 @@ class BreedsQuiz extends Quiz {
         // Determine next action
         if (this.questions.length > 0) {
 
+            // Display next question
             const question = this.questions.pop();
             this.displayQuestion(question);
 
@@ -85,6 +86,9 @@ class BreedsQuiz extends Quiz {
     async handleAnswerResult(result) {
 
         this.points += result.points;
+
+        // Save Quiz
+        saveQuiz(this);
 
         // Delay
         await delay(1000);
