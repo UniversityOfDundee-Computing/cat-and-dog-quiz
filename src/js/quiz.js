@@ -101,16 +101,8 @@ class BreedsQuiz extends Quiz {
 
         // Create the paragraph 
         var par = document.createElement('p');
-        par.textContent = 'You are a .....';
-
-
-
-        var cardTitle = document.createElement('h4');
-        cardTitle.classList.add('card-title');
-        cardTitle.textContent = this.determineOutcome();
-
-        updateGameOver(par, cardTitle);
-
+        par.textContent = 'Cat: 10';
+        updateGameOver(par, 'GOD');
     }
 
     determineOutcome() {

@@ -123,6 +123,8 @@ window.onload = function () {
         });
     });
 
+    document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
+
     //displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-pink', null)
 
     // var test = document.createElement('p');
