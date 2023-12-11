@@ -1,11 +1,9 @@
 class Quiz {
-    constructor(name, theme) {
+    constructor(name, theme, questions) {
         this.name = name;
         this.theme = theme;
-        this.questions = [];
+        this.questions = questions;
     }
-
-    createQuestions(amount) { }
 
     start() {
         if (this.questions.length > 0) {
@@ -37,26 +35,11 @@ class Quiz {
 }
 
 class BreedsQuiz extends Quiz {
-    constructor(name, theme, breeds, animalType) {
-        super(name, theme);
+    constructor(name, theme, questions, animalType) {
+        super(name, theme, questions);
         this.animalType = animalType;
-        this.breeds = breeds;
-        this.questions = [];
+        this.questions = questions;
         this.points = 0;
-    }
-
-    createQuestions(amount) {
-
-        for (let i = 0; i < amount; i++) {
-
-            var randomBreed = this.breeds[Math.floor(Math.random() * this.breeds.length)];
-            var possibleAnswers = getMultipleUniqueBreeds(this.breeds, 4, randomBreed.name);
-
-            let newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, this.animalType, randomBreed.id);
-            this.questions.push(newQuestion);
-        }
-
-        this.questionAmount = this.questions.length;
     }
 
     nextQuestion() {
@@ -133,39 +116,11 @@ class BreedsQuiz extends Quiz {
 
 }
 
-class MultipleAnimalsBreedsQuiz extends BreedsQuiz {
-    constructor(name, theme, catBreeds, dogBreeds) {
-        super(name, theme);
-        this.catBreeds = catBreeds;
-        this.dogBreeds = dogBreeds;
-        this.questions = [];
+class CatDogQuiz extends BreedsQuiz {
+    constructor(name, theme, questions) {
+        super(name, theme, questions, null);
         this.catPoints = 0;
         this.dogPoints = 0;
-    }
-
-    createQuestions(amount) {
-
-        for (let i = 0; i < amount; i++) {
-
-            var newQuestion;
-
-            if (i % 2 === 0) {
-                var randomBreed = this.catBreeds[Math.floor(Math.random() * this.catBreeds.length)];
-                var possibleAnswers = getMultipleUniqueBreeds(this.catBreeds, 4, randomBreed.name);
-
-                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'cat', randomBreed.id);
-            }
-            else {
-                var randomBreed = this.dogBreeds[Math.floor(Math.random() * this.dogBreeds.length)];
-                var possibleAnswers = getMultipleUniqueBreeds(this.dogBreeds, 4, randomBreed.name);
-
-                newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, 'dog', randomBreed.id);
-            }
-
-            this.questions.push(newQuestion);
-        }
-
-        this.questionAmount = this.questions.length;
     }
 
     async handleAnswerResult(result) {
