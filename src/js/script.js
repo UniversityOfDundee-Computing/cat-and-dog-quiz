@@ -57,12 +57,19 @@ function startSingleAnimalBreedsQuiz(animal) {
     getBreeds(animal)
         .then(data => {
 
+            // Create quiz name
             const quizTitle = capitalizeFirstLetter(animal) + ' Quiz';
-            const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
-            currentQuiz = new BreedsQuiz(quizTitle, theme, data, animal);
 
-            currentQuiz.createQuestions(10);
+            // Determine theme based on animal type
+            const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
+
+            // Create questions
+            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, animal);
+
+            currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
+
             currentQuiz.start();
+
         })
         .then(() => {
 
@@ -110,41 +117,41 @@ function startCatDogQuiz() {
 window.onload = function () {
 
 
-    // displayAvailableQuizzes();
+    displayAvailableQuizzes();
 
-    // var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
+    var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
 
-    // startQuizBtns = Array.from(startQuizBtns);
+    startQuizBtns = Array.from(startQuizBtns);
 
-    // startQuizBtns.forEach(button => {
+    startQuizBtns.forEach(button => {
 
-    //     button.addEventListener('click', (event) => {
-    //         startQuiz(event.target.value);
-    //     });
-    // });
+        button.addEventListener('click', (event) => {
+            startQuiz(event.target.value);
+        });
+    });
 
-    // document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
+    document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
 
-
+        
     getBreeds('cat')
-        .then(data => {
+    .then(data => {
+        catBreeds = data;
+        return getBreeds('dog');
+    })
+    .then(data => {
 
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, 'cat');
+        dogBreeds = data;
+        var quesitons = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, dogBreeds, 10);
 
-            console.log(questions);
-            // var quiz = new BreedsQuiz('test', 'none', data, 'cat');
-            // quiz.createQuestions(10);
-            // saveQuiz(quiz)
-        })
+        console.log(quesitons)
 
 
-    //displayFact('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et ut quod minima optio alias ea iusto nihil eius. Impedit sunt labore libero nobis harum ipsa aspernatur cupiditate architecto, deleniti ad.', 'theme-pink', null)
+        // currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', 'theme-pink', catBreeds, dogBreeds);
+        // currentQuiz.createQuestions(4);
 
-    // var test = document.createElement('p');
-    // test.textContent = 'HELLO';
+        // console.log(currentQuiz.questions)
 
-    // displayGameOver(test, 'GOd of ROdents');
+        // currentQuiz.start();
 
-    // updateFact('TESTING', null);
-
+    })
 }

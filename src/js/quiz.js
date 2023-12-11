@@ -1,11 +1,11 @@
 class Quiz {
-    constructor(name, theme) {
+    constructor(name, theme, questions) {
         this.name = name;
         this.theme = theme;
-        this.questions = [];
+        this.questions = questions;
     }
 
-    createQuestions(amount) { }
+    // createQuestions(amount) { }
 
     start() {
         if (this.questions.length > 0) {
@@ -37,26 +37,11 @@ class Quiz {
 }
 
 class BreedsQuiz extends Quiz {
-    constructor(name, theme, breeds, animalType) {
-        super(name, theme);
+    constructor(name, theme, questions, animalType) {
+        super(name, theme, questions);
         this.animalType = animalType;
-        this.breeds = breeds;
-        this.questions = [];
+        this.questions = questions;
         this.points = 0;
-    }
-
-    createQuestions(amount) {
-
-        for (let i = 0; i < amount; i++) {
-
-            var randomBreed = this.breeds[Math.floor(Math.random() * this.breeds.length)];
-            var possibleAnswers = getMultipleUniqueBreeds(this.breeds, 4, randomBreed.name);
-
-            let newQuestion = new MultipleChoiceQuestion('What is the Breed?', randomBreed.name, possibleAnswers, this.animalType, randomBreed.id);
-            this.questions.push(newQuestion);
-        }
-
-        this.questionAmount = this.questions.length;
     }
 
     nextQuestion() {
