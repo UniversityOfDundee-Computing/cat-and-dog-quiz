@@ -37,67 +37,16 @@ function startQuiz(quiz) {
 
 }
 
-function startSingleAnimalBreedsQuiz(animal) {
+async function startSingleAnimalBreedsQuiz(animal) {
 
-    getBreeds(animal)
-        .then(data => {
-
-            // Create quiz name
-            const quizTitle = capitalizeFirstLetter(animal) + ' Quiz';
-
-            // Determine theme based on animal type
-            const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
-
-            // Create questions
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, animal);
-
-            currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
-
-            currentQuiz.start();
-
-        })
-        .then(() => {
-
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    currentQuiz = await QuizFactory.createAnimalQuiz(animal, 4);
+    currentQuiz.start();
 }
 
-function startCatDogQuiz() {
-    var catBreeds;
+async function startCatDogQuiz() {
 
-    getBreeds('cat')
-        .then(data => {
-            catBreeds = data;
-            return getBreeds('dog');
-        })
-        .then(data => {
-
-            // Create quiz name
-            const quizTitle = 'Cat-Dog Quiz';
-
-            // Determine theme based on animal type
-            const theme = 'theme-pink'; 
-
-            // Create questions
-            const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 10);
-
-            currentQuiz = new CatDogQuiz(quizTitle, theme, questions);
-
-            currentQuiz.start();
-
-        })
-        .then(() => {
-
-            document.addEventListener('answerCheckResult', (data) => {
-                currentQuiz.handleAnswerResult(data.detail);
-            });
-
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    currentQuiz = await QuizFactory.createCatDogQuiz(4);
+    currentQuiz.start();
 }
 
 function setupEventListeners(){
@@ -118,16 +67,15 @@ function setupEventListeners(){
     document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
 }
 
-window.onload = function () {
+window.onload = async function () {
 
     setupEventListeners();
 
-    // displayAvailableQuizzes();
+    var quizData = window.localStorage.getItem('activeQuiz');
 
-    currentQuiz = loadQuiz();
+    if(quizData){
 
-    if(currentQuiz){
-
+        currentQuiz = await QuizFactory.createQuizFromStoredData(quizData);
         console.log(currentQuiz);
         currentQuiz.start();
 
