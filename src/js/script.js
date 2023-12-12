@@ -1,6 +1,8 @@
 var currentQuiz;
 
-
+/**
+ * Show all available quizzes
+ */
 function displayAvailableQuizzes() {
 
     removeAnswerEventListener();
@@ -13,9 +15,13 @@ function displayAvailableQuizzes() {
 
     document.getElementById('quiz').classList.add('hidden');
     document.getElementById('game-over').classList.add('hidden');
-
 }
 
+/**
+ * Start a quiz
+ * 
+ * @param {string} quiz - Name of quiz to start 
+ */
 function startQuiz(quiz) {
 
     hidePopUp();
@@ -23,13 +29,8 @@ function startQuiz(quiz) {
     // Hide start quiz buttons
     document.getElementById('quizzes').classList.add('hidden');
 
-    // Remove event listeners for answer result events
-    // if (currentQuiz != null) {
-    //     removeAnswerEventListener();
-    // }
-
     if (quiz === 'cat' || quiz === 'dog') {
-        startSingleAnimalBreedsQuiz(quiz);
+        startAnimalQuiz(quiz);
     }
     else if (quiz === 'cat-dog') {
         startCatDogQuiz();
@@ -37,18 +38,29 @@ function startQuiz(quiz) {
 
 }
 
-async function startSingleAnimalBreedsQuiz(animal) {
+/**
+ * Start a quiz about a single animal
+ * 
+ * @param {string} animal - Animal to make a questions about
+ */
+async function startAnimalQuiz(animal) {
 
     currentQuiz = await QuizFactory.createAnimalQuiz(animal, 4);
     currentQuiz.start();
 }
 
+/**
+ * Start cat dog quiz
+ */
 async function startCatDogQuiz() {
 
     currentQuiz = await QuizFactory.createCatDogQuiz(4);
     currentQuiz.start();
 }
 
+/**
+ * Add event listeners
+ */
 function setupEventListeners(){
 
     // Find all quiz start buttons
@@ -57,7 +69,6 @@ function setupEventListeners(){
 
     // Add event to all start quiz buttons
     startQuizBtns.forEach(button => {
-
         button.addEventListener('click', (event) => {
             startQuiz(event.target.value);
         });
@@ -73,12 +84,10 @@ window.onload = async function () {
 
     var quizData = window.localStorage.getItem('activeQuiz');
 
+    // If stored data about quiz exists
     if(quizData){
-
         currentQuiz = await QuizFactory.createQuizFromStoredData(quizData);
-        console.log(currentQuiz);
         currentQuiz.start();
-
     }else{
         displayAvailableQuizzes();
     }
