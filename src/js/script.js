@@ -67,16 +67,15 @@ function setupEventListeners(){
     document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
 }
 
-window.onload = function () {
+window.onload = async function () {
 
     setupEventListeners();
 
-    // displayAvailableQuizzes();
+    var quizData = window.localStorage.getItem('activeQuiz');
 
-    currentQuiz = loadQuiz();
+    if(quizData){
 
-    if(currentQuiz){
-
+        currentQuiz = await QuizFactory.createQuizFromStoredData(quizData);
         console.log(currentQuiz);
         currentQuiz.start();
 

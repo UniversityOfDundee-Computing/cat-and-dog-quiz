@@ -100,37 +100,41 @@ function saveQuiz(quiz){
     window.localStorage.setItem('activeQuiz', quizString);
 }
 
-function loadQuiz(){
+// async function loadQuiz(){
 
-    var quizData = window.localStorage.getItem('activeQuiz');
+//     var quizData = window.localStorage.getItem('activeQuiz');
 
-    // If quiz is stored
-    if (quizData){
+//     re
 
-        var parsedQuizData = JSON.parse(quizData);
-        var questions = [];
 
-        // Reconstruct questions
-        parsedQuizData.questions.forEach(data => {
 
-            const question = QuestionFactory.createMultipleChoiceQuestion(data.question, data.answer, data.possibleAnswers, data.animalType, data.animalID);
-            questions.push(question)
+//     // If quiz is stored
+//     if (quizData){
+
+//         var parsedQuizData = JSON.parse(quizData);
+//         var questions = [];
+
+//         // Reconstruct questions
+//         parsedQuizData.questions.forEach(data => {
+
+//             const question = QuestionFactory.createMultipleChoiceQuestion(data.question, data.answer, data.possibleAnswers, data.animalType, data.animalID);
+//             questions.push(question)
             
-        });
+//         });
 
-        // Display single animal quiz
-        if(parsedQuizData.name === 'Cat Quiz' || parsedQuizData.name === 'Dog Quiz' ){
+//         // Display single animal quiz
+//         if(parsedQuizData.name === 'Cat Quiz' || parsedQuizData.name === 'Dog Quiz' ){
 
-            const animalType = parsedQuizData.name === 'Cat Quiz' ? 'cat' : 'dog';
+//             const animalType = parsedQuizData.name === 'Cat Quiz' ? 'cat' : 'dog';
 
-            return new AnimalQuiz(parsedQuizData.name, parsedQuizData.theme, questions, animalType, parseInt(parsedQuizData.points), parseInt(parsedQuizData.questionAmount) );
-        }
-        else if(parsedQuizData.name === 'Cat-Dog Quiz'){
-            return new CatDogQuiz(parsedQuizData.name, parsedQuizData.theme, questions, parseInt(parsedQuizData.catPoints), parseInt(parsedQuizData.dogPoints));
-        }
+//             return new AnimalQuiz(parsedQuizData.name, parsedQuizData.theme, questions, animalType, parseInt(parsedQuizData.points), parseInt(parsedQuizData.questionAmount) );
+//         }
+//         else if(parsedQuizData.name === 'Cat-Dog Quiz'){
+//             return new CatDogQuiz(parsedQuizData.name, parsedQuizData.theme, questions, parseInt(parsedQuizData.catPoints), parseInt(parsedQuizData.dogPoints));
+//         }
 
-        return null;
-    }
+//         return null;
+//     }
 
-    return null;
-}
+//     return null;
+// }
