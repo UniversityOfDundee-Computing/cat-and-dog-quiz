@@ -1,9 +1,12 @@
 var currentQuiz;
+var answerCheckResultHandler;
 
 function displayAvailableQuizzes() {
 
+    // Remove any stored data
     window.localStorage.removeItem('activeQuiz');
 
+    // Show available quiz buttons
     document.getElementById('quizzes').classList.remove('hidden');
 
     document.getElementById('quiz').classList.add('hidden');
@@ -13,12 +16,14 @@ function displayAvailableQuizzes() {
 
 function startQuiz(quiz) {
 
+    hidePopUp();
+
+    // Hide start quiz buttons
     document.getElementById('quizzes').classList.add('hidden');
 
+    // Remove event listeners for answer result events
     if (currentQuiz != null) {
-        document.removeEventListener('answerCheckResult', (data) => {
-            currentQuiz.handleAnswerResult(data.detail);
-        });
+        document.removeEventListener('answerCheckResult', answerCheckResultHandler);
     }
 
     if (quiz === 'cat' || quiz === 'dog') {
@@ -51,10 +56,11 @@ function startSingleAnimalBreedsQuiz(animal) {
         })
         .then(() => {
 
-            document.addEventListener('answerCheckResult', (data) => {
-                console.log('helo')
+            answerCheckResultHandler = (data) => {
                 currentQuiz.handleAnswerResult(data.detail);
-            });
+            };
+
+            document.addEventListener('answerCheckResult', answerCheckResultHandler);
 
         })
         .catch(err => {
@@ -98,9 +104,30 @@ function startCatDogQuiz() {
         })
 }
 
+function setupEventListeners(){
+
+    // Find all quiz start buttons
+    var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
+    startQuizBtns = Array.from(startQuizBtns);
+
+    // Add event to all start quiz buttons
+    startQuizBtns.forEach(button => {
+
+        button.addEventListener('click', (event) => {
+            startQuiz(event.target.value);
+        });
+    });
+
+    // Add event listener to game over screen button
+    document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
+}
+
 window.onload = function () {
 
     hidePopUp();
+    setupEventListeners();
+
+
     displayAvailableQuizzes();
 //     currentQuiz = loadQuiz();
 //     currentQuiz = null;
@@ -117,19 +144,5 @@ window.onload = function () {
 //    }else{
 //         displayAvailableQuizzes();
 //    }
-
-
-    var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
-
-    startQuizBtns = Array.from(startQuizBtns);
-
-    startQuizBtns.forEach(button => {
-
-        button.addEventListener('click', (event) => {
-            startQuiz(event.target.value);
-        });
-    });
-
-    document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
 
 }
