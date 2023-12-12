@@ -23,6 +23,7 @@ class QuizFactory {
             return new AnimalQuiz(quizTitle, theme, questions, animal);
 
         } catch (err) {
+            console.log(err)
             return null;
         }
     }
@@ -52,6 +53,7 @@ class QuizFactory {
             return new CatDogQuiz(quizTitle, theme, questions);
 
         } catch (err) {
+            console.log(err)
             return null;
         }
     }
