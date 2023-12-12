@@ -1,5 +1,9 @@
 class QuestionFactory{
 
+    static createMultipleChoiceQuestion(question, answer, possibleAnswers, animalType, animalID){
+        return new MultipleChoiceQuestion(question, answer, possibleAnswers, animalType, animalID)
+    }
+
     static createMultipleChoiceBreedQuestions(breeds, amount, animalType){
 
         var questions = []

@@ -39,7 +39,7 @@ function startQuiz(quiz) {
 
     if (currentQuiz != null) {
         document.removeEventListener('answerCheckResult', (data) => {
-            currentQuiz.handleAnswerResult(data.detail.points);
+            currentQuiz.handleAnswerResult(data.detail);
         });
     }
 
@@ -64,7 +64,7 @@ function startSingleAnimalBreedsQuiz(animal) {
             const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
 
             // Create questions
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 2, animal);
+            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 1, animal);
 
             currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
 
@@ -74,7 +74,8 @@ function startSingleAnimalBreedsQuiz(animal) {
         .then(() => {
 
             document.addEventListener('answerCheckResult', (data) => {
-                currentQuiz.handleAnswerResult(data.detail.points);
+                console.log('helo')
+                currentQuiz.handleAnswerResult(data.detail);
             });
 
         })
@@ -121,8 +122,19 @@ function startCatDogQuiz() {
 
 window.onload = function () {
 
+    currentQuiz = loadQuiz();
 
-    displayAvailableQuizzes();
+   if(currentQuiz){
+        currentQuiz.start();
+
+        document.addEventListener('answerCheckResult', (data) => {
+            currentQuiz.handleAnswerResult(data.detail.points);
+        });
+
+   }else{
+        displayAvailableQuizzes();
+   }
+
 
     var startQuizBtns = document.getElementsByClassName('start-quiz-btn');
 
@@ -137,26 +149,4 @@ window.onload = function () {
 
     document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
 
-        
-    getBreeds('cat')
-    .then(data => {
-        catBreeds = data;
-        return getBreeds('dog');
-    })
-    .then(data => {
-
-        dogBreeds = data;
-        var quesitons = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, dogBreeds, 10);
-
-        console.log(quesitons)
-
-
-        // currentQuiz = new MultipleAnimalsBreedsQuiz('Cat Dog Quiz', 'theme-pink', catBreeds, dogBreeds);
-        // currentQuiz.createQuestions(4);
-
-        // console.log(currentQuiz.questions)
-
-        // currentQuiz.start();
-
-    })
 }

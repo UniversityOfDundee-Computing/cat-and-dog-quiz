@@ -101,6 +101,7 @@ function hidePopUp(){
 function updateGameOver(scoreElement, result){
 
     document.getElementById('game-over').classList.remove('hidden');
+    document.getElementById('score').innerHTML = '';
     document.getElementById('score').append(scoreElement);
     document.getElementById('rank').innerText = result;
 }
@@ -114,14 +115,30 @@ function saveQuiz(quiz){
 function loadQuiz(){
 
     var quizData = window.localStorage.getItem('activeQuiz');
-    console.log(quiz)
 
+    // If quiz is stored
     if (quizData){
-        console.log('QUIZ LOADED')
+
         var parsedQuizData = JSON.parse(quizData);
 
-        currentQuiz = new BreedsQuiz(quizData);
-        currentQuiz.start();
+        // Display single animal quiz
+        if(parsedQuizData.name === 'Cat Quiz' || parsedQuizData.name === 'Dog Quiz' ){
+
+            var questions = []
+
+            // Reconstruct questions
+            parsedQuizData.questions.forEach(data => {
+
+                const question = QuestionFactory.createMultipleChoiceQuestion(data.question, data.answer, data.possibleAnswers, data.animalType, data.animalID);
+                questions.push(question)
+                
+            });
+            
+            return new BreedsQuiz(parsedQuizData.name, parsedQuizData.theme, questions);
+        }
+
+        return null;
     }
 
+    return null;
 }

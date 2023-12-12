@@ -60,6 +60,7 @@ class BreedsQuiz extends Quiz {
     }
 
     displayQuestion(question) {
+
         getAnimalDetails(question.animalID, question.animalType)
             .then(data => {
                 question.displayQuestion(data[0].url);
@@ -68,7 +69,7 @@ class BreedsQuiz extends Quiz {
 
     async handleAnswerResult(result) {
 
-        this.points += result.points;
+        this.points += parseInt(result.points);
 
         // Save Quiz
         saveQuiz(this);
@@ -86,6 +87,9 @@ class BreedsQuiz extends Quiz {
 
     quizOver() {
 
+
+        window.localStorage.removeItem('activeQuiz');
+
         // Create the paragraph 
         var scores = document.createElement('p');
         scores.textContent = `${this.animalType}: ${this.points}`;
@@ -95,9 +99,11 @@ class BreedsQuiz extends Quiz {
     determineOutcome() {
 
         const points = this.points;
-        const maxScore = this.questionAmount;
+        // const maxScore = this.questionAmount;
 
         const animalType = capitalizeFirstLetter(this.animalType) + 's';
+
+        return 'test';
 
         if (points === maxScore)
             return 'King of ' + animalType;
