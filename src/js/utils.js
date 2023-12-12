@@ -1,4 +1,11 @@
-// https://alvarotrigo.com/blog/wait-1-second-javascript/
+/**
+ * https://alvarotrigo.com/blog/wait-1-second-javascript/
+ * 
+ * Add a delay
+ * 
+ * @param {number} milliseconds - Milliseconds to delay for
+ * @returns - Timeout promise
+ */
 function delay(milliseconds) {
     return new Promise(resolve => {
         setTimeout(resolve, milliseconds);
@@ -6,27 +13,14 @@ function delay(milliseconds) {
 }
 
 /**
- * Returns a html element which contains the answer within.
+ * https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ * Fisher-Yates (aka Knuth) Shuffle.
  * 
- * @param {string} answer 
- * @returns element containing the answer
+ * Shuffle elements in the array
+ * 
+ * @param {[]} array - Array to shuffle
+ * @returns Shuffled array
  */
-function createAnswerElement(answer) {
-
-    // Create button element
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'question-answer col-lg-4 col-sm-12';
-
-    btn.innerHTML = answer;
-    btn.id = answer;
-
-    return btn;
-}
-
-
-// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-// Fisher-Yates (aka Knuth) Shuffle.
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
 
@@ -45,6 +39,43 @@ function shuffle(array) {
     return array;
 }
 
+/**
+ * Capitalism first character of a string
+ * 
+ * @param {string} str - String to capitalize first character of
+ * @returns First character capitalized string
+ */
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
+
+
+/**
+ * Create an element for an answer
+ * 
+ * @param {string} answer - Answer to display
+ * @returns Button element containing the answer
+ */
+function createAnswerElement(answer) {
+
+    // Create button element
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'question-answer col-lg-4 col-sm-12';
+
+    btn.innerHTML = answer;
+    btn.id = answer;
+
+    return btn;
+}
+
+/**
+ * Delete an element by id
+ * 
+ * @param {string} id - Id of element to delete
+ */
 function deleteElementById(id) {
 
     var element = document.getElementById(id);
@@ -54,31 +85,30 @@ function deleteElementById(id) {
 
 }
 
-function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
-function getMultipleUniqueBreeds(animalBreeds, amount, includedBreed = null) {
 
-    var uniqueBreeds = [];
-    var breeds = animalBreeds;
+function getUniqueSubset(array, size, include=null) {
+
+    var unique = [];
+    var values = array;
 
     // Include breed if passed
-    if (includedBreed != null)
-        uniqueBreeds.push(includedBreed);
+    if (include != null)
+        unique.push(include);
 
     // Get unique breeds
-    while (uniqueBreeds.length < amount) {
-        var ranIndex = Math.floor(Math.random() * breeds.length);
+    while (unique.length < size) {
 
-        const newBreed = breeds.splice(ranIndex, 1)[0];
+        var ranIndex = Math.floor(Math.random() * values.length);
+
+        const newValue = values.splice(ranIndex, 1)[0];
 
         // Check if breed already exists in unique breeds
-        if (!uniqueBreeds.includes(newBreed.name))
-            uniqueBreeds.push(newBreed.name);
+        if (!unique.includes(newValue.name))
+            unique.push(newValue.name);
     }
 
-    return shuffle(uniqueBreeds);
+    return shuffle(unique);
 }
 
 function hidePopUp(){
