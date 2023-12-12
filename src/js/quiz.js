@@ -41,11 +41,12 @@ class Quiz {
 }
 
 class BreedsQuiz extends Quiz {
-    constructor(name, theme, questions, animalType, points=0) {
+    constructor(name, theme, questions, animalType, points=0, questionAmount=null) {
         super(name, theme, questions);
         this.animalType = animalType;
         this.questions = questions;
         this.points = points;
+        this.questionAmount = questionAmount ? questionAmount : questions.length;
     }
 
     nextQuestion() {
@@ -96,7 +97,7 @@ class BreedsQuiz extends Quiz {
         var scores = document.createElement('p');
 
         const animalType = capitalizeFirstLetter(this.animalType) + 's';
-        
+
         scores.textContent = `${animalType}: ${this.points}`;
         updateGameOver(scores, this.determineOutcome());
     }
@@ -104,8 +105,7 @@ class BreedsQuiz extends Quiz {
     determineOutcome() {
 
         const points = this.points;
-        //const maxScore = this.questionAmount;
-        const maxScore = 10;
+        const maxScore = this.questionAmount;
 
         console.log(this.points);
 
@@ -116,8 +116,6 @@ class BreedsQuiz extends Quiz {
             return 'King of ' + animalType;
         else if (points === 0)
             return 'Sad Person';
-        // else if (points > maxScore/2)
-        //     return 'Duke of ' + animalType;
         else if (points >= maxScore / 2)
             return 'Knight of ' + animalType;
         else if (points < maxScore / 2)
@@ -178,7 +176,6 @@ class CatDogQuiz extends BreedsQuiz {
 
         const catPoints = this.catPoints;
         const dogPoints = this.dogPoints;
-        const maxScore = this.questionAmount;
 
         if (catPoints == 0 && dogPoints == 0)
             return 'Sad Person'
