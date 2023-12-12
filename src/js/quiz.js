@@ -1,10 +1,11 @@
+
 class Quiz {
     constructor(name, theme, questions) {
         this.name = name;
         this.theme = theme;
         this.questions = questions;
     }
-
+    
     start() {
 
         hidePopUp();
@@ -33,28 +34,7 @@ class Quiz {
 
     }
 
-    nextQuestion() { }
-
-    checkAnswer() { }
-
-    quizOver() {
-        console.log('game over');
-    }
-
-    determineOutcome() { }
-
-}
-
-class BreedsQuiz extends Quiz {
-    constructor(name, theme, questions, animalType, points=0, questionAmount=null) {
-        super(name, theme, questions);
-        this.animalType = animalType;
-        this.questions = questions;
-        this.points = points;
-        this.questionAmount = questionAmount ? questionAmount : questions.length;
-    }
-
-    nextQuestion() {
+    nextQuestion() { 
 
         hidePopUp();
 
@@ -68,15 +48,38 @@ class BreedsQuiz extends Quiz {
         } else {
             this.quizOver();
         }
-
     }
 
-    displayQuestion(question) {
+    /**
+     * Display question
+     * 
+     * @param {question} question 
+     */
+        displayQuestion(question) {
 
-        getAnimalDetails(question.animalID, question.animalType)
-            .then(data => {
-                question.displayQuestion(data[0].url);
-            })
+            getAnimalDetails(question.animalID, question.animalType)
+                .then(data => {
+                    question.displayQuestion(data[0].url);
+                })
+        }
+
+    checkAnswer() { }
+
+    quizOver() {
+        console.log('game over');
+    }
+
+    determineOutcome() { }
+
+}
+
+class AnimalQuiz extends Quiz {
+    constructor(name, theme, questions, animalType, points=0, questionAmount=null) {
+        super(name, theme, questions);
+        this.animalType = animalType;
+        this.questions = questions;
+        this.points = points;
+        this.questionAmount = questionAmount ? questionAmount : questions.length;
     }
 
     async handleAnswerResult(result) {
@@ -134,7 +137,7 @@ class BreedsQuiz extends Quiz {
 
 }
 
-class CatDogQuiz extends BreedsQuiz {
+class CatDogQuiz extends AnimalQuiz {
     constructor(name, theme, questions, catPoints=0, dogPoints=0) {
         super(name, theme, questions, null);
         this.catPoints = catPoints;
