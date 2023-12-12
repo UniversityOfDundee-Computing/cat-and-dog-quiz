@@ -1,0 +1,31 @@
+.question-text{
+    padding: 1rem;
+    color: white;
+    background-color:  var(--primary-color);
+    border-radius: 5rem;
+}
+
+.question-answer{
+    background-color: white;
+    border: 3px solid var(--primary-color);
+    border-radius: 1rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.question-answer:hover:enabled {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.correct-answer{
+    background-color: #56cc9d;
+    color: white;
+    border-color: #20c997;
+}
+
+.wrong-answer{
+    background-color: #e83e8c;
+    color: white;
+    border-color: #ff7851;
+}

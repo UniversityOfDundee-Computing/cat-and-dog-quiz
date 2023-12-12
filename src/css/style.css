@@ -1,0 +1,107 @@
+body{
+    color: white;
+}
+
+.theme-purple{
+    --primary-color: #6f42c1;
+    --font-color: white;
+}
+
+.theme-blue{
+    --primary-color: #007bff;
+    --font-color: white;
+}
+
+.theme-pink{
+    --primary-color: #e83e8c;
+    --font-color: white;
+}
+
+.navbar{
+    border-radius: 0 0 1rem 1rem;
+}
+
+.bg{
+    height: 100vh;
+    background-image: url('../assets/layered-waves-haikei.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+
+#pop-up{
+    position: fixed;
+}
+
+.hidden {
+    display: none;
+}
+
+h1, h2 {
+    color: white;
+}
+
+
+
+.quiz-type{
+    color: white;
+    font-size: 2rem;
+    border-radius: 1rem;
+    border: none;
+}
+
+
+.quiz-type h2{
+    color: white;
+}
+
+.start-quiz-btn{
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 2rem;
+    border-radius: 1rem;
+    border: none;
+}
+
+.img{
+    display: block;
+}
+
+.button{
+    border-radius: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    color: white;
+}
+
+.button:hover{
+    border-radius: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    background-color: white;
+}
+
+.card-custom{
+    background-color: white;
+}
+
+.card-header{
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.button{
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+}
+
+.button:hover{
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+
+#game-over p{
+    margin-bottom: 0;
+} 
