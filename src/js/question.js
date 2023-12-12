@@ -19,8 +19,8 @@ class Question {
     displayPossibleAnswers() { }
 
     checkAnswer(answer) {
-        var result = answer == this.answer ? 1 : 0;
-        dispatchAnswerCheckResultEvent(this.animalType, result)
+        var result = answer === this.answer ? 1 : 0;
+        dispatchAnswerCheckResultEvent(this.animalType, result);
     }
 
     enableAnswering(answerEl, mode){

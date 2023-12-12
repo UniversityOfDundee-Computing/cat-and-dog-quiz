@@ -23,7 +23,20 @@ async function getFact(animalType) {
 
 }
 
+function displayFact(animalType, callback){
+
+        // Show fact
+        getFact(animalType)
+        .then(fact => updateFact(fact, () => {
+            callback();
+        }))
+        .catch(err => callback());
+
+}
+
 function updateFact(fact, callback){
+
+    console.log('Display Fact');
 
     // Show fact pop up
     document.getElementById('fact').classList.remove('hidden');

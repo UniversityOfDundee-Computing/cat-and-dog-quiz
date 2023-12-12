@@ -10,6 +10,11 @@ class Quiz {
         hidePopUp();
         document.body.className = `bg ${this.theme}`;
 
+        addAnswerEventListener((event) => {
+            this.handleAnswerResult(event.detail);
+        });
+
+
         if (this.questions.length > 0) {
             this.displayQuiz();
             this.nextQuestion();
@@ -81,18 +86,20 @@ class BreedsQuiz extends Quiz {
         // Save Quiz
         saveQuiz(this);
 
+        console.log(result.points)
+
         // Delay
         await delay(1000);
 
-        // Show fact
-        await getFact(this.animalType)
-            .then(fact => updateFact(fact, () => {
-                this.nextQuestion();
-            }))
-            .catch(err => this.nextQuestion());
+        displayFact(result.animalType, () => {
+            this.nextQuestion();
+        });
     }
 
     quizOver() {
+
+        removeAnswerEventListener();
+
         // Create the paragraph 
         var scores = document.createElement('p');
 
@@ -146,12 +153,11 @@ class CatDogQuiz extends BreedsQuiz {
         // Delay
         await delay(1000);
 
-        // Show fact
-        await getFact(result.animalType)
-            .then(fact => updateFact(fact, () => {
-                this.nextQuestion();
-            }))
-            .catch(err => this.nextQuestion());
+        displayFact(result.animalType, () => {
+            this.nextQuestion();
+        });
+
+
     }
 
     quizOver() {

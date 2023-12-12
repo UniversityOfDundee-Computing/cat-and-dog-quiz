@@ -5,18 +5,6 @@ function delay(milliseconds) {
     });
 }
 
-function dispatchAnswerCheckResultEvent(animaType, points) {
-
-    const answerCheckResult = new CustomEvent('answerCheckResult', {
-        detail: {
-            points: points,
-            animalType: animaType
-        }
-    });
-
-    document.dispatchEvent(answerCheckResult);
-}
-
 /**
  * Returns a html element which contains the answer within.
  * 

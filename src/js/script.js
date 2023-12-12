@@ -1,7 +1,9 @@
 var currentQuiz;
-var answerCheckResultHandler;
+
 
 function displayAvailableQuizzes() {
+
+    removeAnswerEventListener();
 
     // Remove any stored data
     window.localStorage.removeItem('activeQuiz');
@@ -22,9 +24,9 @@ function startQuiz(quiz) {
     document.getElementById('quizzes').classList.add('hidden');
 
     // Remove event listeners for answer result events
-    if (currentQuiz != null) {
-        document.removeEventListener('answerCheckResult', answerCheckResultHandler);
-    }
+    // if (currentQuiz != null) {
+    //     removeAnswerEventListener();
+    // }
 
     if (quiz === 'cat' || quiz === 'dog') {
         startSingleAnimalBreedsQuiz(quiz);
@@ -47,7 +49,7 @@ function startSingleAnimalBreedsQuiz(animal) {
             const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
 
             // Create questions
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 2, animal);
+            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, animal);
 
             currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
 
@@ -55,12 +57,6 @@ function startSingleAnimalBreedsQuiz(animal) {
 
         })
         .then(() => {
-
-            answerCheckResultHandler = (data) => {
-                currentQuiz.handleAnswerResult(data.detail);
-            };
-
-            document.addEventListener('answerCheckResult', answerCheckResultHandler);
 
         })
         .catch(err => {
@@ -85,7 +81,7 @@ function startCatDogQuiz() {
             const theme = 'theme-pink'; 
 
             // Create questions
-            const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 2);
+            const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 10);
 
             currentQuiz = new CatDogQuiz(quizTitle, theme, questions);
 
@@ -124,25 +120,19 @@ function setupEventListeners(){
 
 window.onload = function () {
 
-    hidePopUp();
     setupEventListeners();
 
+    // displayAvailableQuizzes();
 
-    displayAvailableQuizzes();
-//     currentQuiz = loadQuiz();
-//     currentQuiz = null;
+    currentQuiz = loadQuiz();
 
-//    if(currentQuiz){
+    if(currentQuiz){
 
-//         console.log(currentQuiz);
-//         currentQuiz.start();
+        console.log(currentQuiz);
+        currentQuiz.start();
 
-//         document.addEventListener('answerCheckResult', (data) => {
-//             currentQuiz.handleAnswerResult(data.detail.points);
-//         });
-
-//    }else{
-//         displayAvailableQuizzes();
-//    }
+    }else{
+        displayAvailableQuizzes();
+    }
 
 }
