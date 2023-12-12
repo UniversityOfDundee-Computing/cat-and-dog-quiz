@@ -123,7 +123,7 @@ function loadQuiz(){
 
             const animalType = parsedQuizData.name === 'Cat Quiz' ? 'cat' : 'dog';
 
-            return new BreedsQuiz(parsedQuizData.name, parsedQuizData.theme, questions, animalType, parseInt(parsedQuizData.points), parseInt(parsedQuizData.questionAmount) );
+            return new AnimalQuiz(parsedQuizData.name, parsedQuizData.theme, questions, animalType, parseInt(parsedQuizData.points), parseInt(parsedQuizData.questionAmount) );
         }
         else if(parsedQuizData.name === 'Cat-Dog Quiz'){
             return new CatDogQuiz(parsedQuizData.name, parsedQuizData.theme, questions, parseInt(parsedQuizData.catPoints), parseInt(parsedQuizData.dogPoints));
