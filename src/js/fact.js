@@ -25,13 +25,15 @@ async function getFact(animalType) {
 
 function updateFact(fact, callback){
 
-    console.log("HELLO");
-
+    // Show fact pop up
     document.getElementById('fact').classList.remove('hidden');
 
     document.getElementById('fact-text').textContent = fact;
+
+    // Remove prev buton due to ahvign an event listiner
     document.getElementById('next-question-btn').remove();
 
+    // Create button to go to next question
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'button';
@@ -39,5 +41,6 @@ function updateFact(fact, callback){
     btn.id = 'next-question-btn';
 
     btn.addEventListener('click', callback);
+    
     document.getElementById('fact-btns').appendChild(btn);
 }

@@ -122,9 +122,12 @@ function startCatDogQuiz() {
 
 window.onload = function () {
 
+    hidePopUp();
     currentQuiz = loadQuiz();
 
    if(currentQuiz){
+
+        console.log(currentQuiz);
         currentQuiz.start();
 
         document.addEventListener('answerCheckResult', (data) => {

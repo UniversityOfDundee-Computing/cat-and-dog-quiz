@@ -6,12 +6,18 @@ class Quiz {
     }
 
     start() {
+
+        hidePopUp();
+        document.body.className = `bg ${this.theme}`;
+
         if (this.questions.length > 0) {
             this.displayQuiz();
             this.nextQuestion();
         }
-        else
-            console.log('No Questions Present');
+        else{
+            this.quizOver();
+        }
+
     }
 
     displayQuiz() {
@@ -35,11 +41,11 @@ class Quiz {
 }
 
 class BreedsQuiz extends Quiz {
-    constructor(name, theme, questions, animalType) {
+    constructor(name, theme, questions, animalType, points=0) {
         super(name, theme, questions);
         this.animalType = animalType;
         this.questions = questions;
-        this.points = 0;
+        this.points = points;
     }
 
     nextQuestion() {
@@ -86,24 +92,25 @@ class BreedsQuiz extends Quiz {
     }
 
     quizOver() {
-
-
-        window.localStorage.removeItem('activeQuiz');
-
         // Create the paragraph 
         var scores = document.createElement('p');
-        scores.textContent = `${this.animalType}: ${this.points}`;
+
+        const animalType = capitalizeFirstLetter(this.animalType) + 's';
+        
+        scores.textContent = `${animalType}: ${this.points}`;
         updateGameOver(scores, this.determineOutcome());
     }
 
     determineOutcome() {
 
         const points = this.points;
-        // const maxScore = this.questionAmount;
+        //const maxScore = this.questionAmount;
+        const maxScore = 10;
+
+        console.log(this.points);
 
         const animalType = capitalizeFirstLetter(this.animalType) + 's';
 
-        return 'test';
 
         if (points === maxScore)
             return 'King of ' + animalType;
@@ -123,10 +130,10 @@ class BreedsQuiz extends Quiz {
 }
 
 class CatDogQuiz extends BreedsQuiz {
-    constructor(name, theme, questions) {
+    constructor(name, theme, questions, catPoints=0, dogPoints=0) {
         super(name, theme, questions, null);
-        this.catPoints = 0;
-        this.dogPoints = 0;
+        this.catPoints = catPoints;
+        this.dogPoints = dogPoints;
     }
 
     async handleAnswerResult(result) {
