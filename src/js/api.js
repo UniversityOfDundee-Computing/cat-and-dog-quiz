@@ -8,13 +8,16 @@ var dogBreeds;
  * Get breeds of an anima using an API
  * 
  * @param {string} animal - Name of the name to get breeds of
- * @returns 
+ * @returns - List of breed names and ids
  */
 async function getBreeds(animal) {
     return fetch(`https://api.the${animal}api.com/v1/breeds`)
         .then(response => response.json())
         .then(data => {
             return data.map(element => ({ id: element.id, name: element.name }));
+        })
+        .catch((err) => {
+            throw err;
         })
 }
 
@@ -23,7 +26,7 @@ async function getBreeds(animal) {
  * 
  * @param {string} breed - Breed on animal to get details of
  * @param {string} type - Type of animal to get details of
- * @returns 
+ * @returns - Details about the breed
  */
 function getAnimalDetails(breed, type) {
 
@@ -33,4 +36,7 @@ function getAnimalDetails(breed, type) {
     return fetch(`https://api.the${type}api.com/v1/images/search?breed_ids=${breed}&api_key=${api}`)
         .then(response => response.json())
         .then(data => data)
+        .catch((err) => {
+            throw err;
+        })
 }
