@@ -19,4 +19,33 @@ class QuizFactory{
             return null;
         }
     }
+
+    /**
+     * Create a quiz which keeps count of cat points and dog points 
+     * 
+     * @param {number} questionAmount - Number of questions to create
+     * @returns {CatDogQuiz} CatDoz quiz
+     */
+    static async createCatDogQuiz(questionAmount){
+
+        try{
+
+            const catBreeds = await getBreeds('cat');
+            const dogBreeds = await getBreeds('dog');
+
+            // Create quiz name
+            const quizTitle = 'Cat-Dog Quiz';
+
+            // Determine theme based on animal type
+            const theme = 'theme-pink'; 
+
+            // Create questions
+            const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, dogBreeds, 10);
+
+            return new CatDogQuiz(quizTitle, theme, questions);
+
+        } catch(err) {
+            return null;
+        }
+    }
 }

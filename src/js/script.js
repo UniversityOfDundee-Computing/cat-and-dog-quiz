@@ -43,40 +43,42 @@ async function startSingleAnimalBreedsQuiz(animal) {
     currentQuiz.start();
 }
 
-function startCatDogQuiz() {
-    var catBreeds;
+async function startCatDogQuiz() {
 
-    getBreeds('cat')
-        .then(data => {
-            catBreeds = data;
-            return getBreeds('dog');
-        })
-        .then(data => {
+    currentQuiz = await QuizFactory.createCatDogQuiz(4);
+    currentQuiz.start();
 
-            // Create quiz name
-            const quizTitle = 'Cat-Dog Quiz';
+    // getBreeds('cat')
+    //     .then(data => {
+    //         catBreeds = data;
+    //         return getBreeds('dog');
+    //     })
+    //     .then(data => {
 
-            // Determine theme based on animal type
-            const theme = 'theme-pink'; 
+    //         // Create quiz name
+    //         const quizTitle = 'Cat-Dog Quiz';
 
-            // Create questions
-            const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 10);
+    //         // Determine theme based on animal type
+    //         const theme = 'theme-pink'; 
 
-            currentQuiz = new CatDogQuiz(quizTitle, theme, questions);
+    //         // Create questions
+    //         const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 10);
 
-            currentQuiz.start();
+    //         currentQuiz = new CatDogQuiz(quizTitle, theme, questions);
 
-        })
-        .then(() => {
+    //         currentQuiz.start();
 
-            document.addEventListener('answerCheckResult', (data) => {
-                currentQuiz.handleAnswerResult(data.detail);
-            });
+    //     })
+    //     .then(() => {
 
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    //         document.addEventListener('answerCheckResult', (data) => {
+    //             currentQuiz.handleAnswerResult(data.detail);
+    //         });
+
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
 }
 
 function setupEventListeners(){
