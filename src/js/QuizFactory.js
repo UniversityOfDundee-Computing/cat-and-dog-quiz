@@ -1,5 +1,12 @@
 class QuizFactory{
 
+     /**
+     * Create a quiz which keeps count of points for a single animal 
+     * 
+     * @param {string} animal - The animal the quiz is about
+     * @param {number} questionAmount - Number of questions to create
+     * @returns {AnimalQuiz} AnimalQuiz quiz
+     */
     static async createAnimalQuiz(animal, questionAmount){
 
         try{
