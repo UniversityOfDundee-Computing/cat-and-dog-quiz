@@ -47,38 +47,6 @@ async function startCatDogQuiz() {
 
     currentQuiz = await QuizFactory.createCatDogQuiz(4);
     currentQuiz.start();
-
-    // getBreeds('cat')
-    //     .then(data => {
-    //         catBreeds = data;
-    //         return getBreeds('dog');
-    //     })
-    //     .then(data => {
-
-    //         // Create quiz name
-    //         const quizTitle = 'Cat-Dog Quiz';
-
-    //         // Determine theme based on animal type
-    //         const theme = 'theme-pink'; 
-
-    //         // Create questions
-    //         const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, data, 10);
-
-    //         currentQuiz = new CatDogQuiz(quizTitle, theme, questions);
-
-    //         currentQuiz.start();
-
-    //     })
-    //     .then(() => {
-
-    //         document.addEventListener('answerCheckResult', (data) => {
-    //             currentQuiz.handleAnswerResult(data.detail);
-    //         });
-
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
 }
 
 function setupEventListeners(){
