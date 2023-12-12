@@ -7,6 +7,9 @@ var dogBreeds;
 var currentQuiz;
 
 function displayAvailableQuizzes() {
+
+    window.localStorage.removeItem('activeQuiz');
+
     document.getElementById('quizzes').classList.remove('hidden');
 
     document.getElementById('quiz').classList.add('hidden');
