@@ -37,31 +37,10 @@ function startQuiz(quiz) {
 
 }
 
-function startSingleAnimalBreedsQuiz(animal) {
+async function startSingleAnimalBreedsQuiz(animal) {
 
-    getBreeds(animal)
-        .then(data => {
-
-            // Create quiz name
-            const quizTitle = capitalizeFirstLetter(animal) + ' Quiz';
-
-            // Determine theme based on animal type
-            const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
-
-            // Create questions
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 10, animal);
-
-            currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
-
-            currentQuiz.start();
-
-        })
-        .then(() => {
-
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    currentQuiz = await QuizFactory.createAnimalQuiz(animal, 4);
+    currentQuiz.start();
 }
 
 function startCatDogQuiz() {
