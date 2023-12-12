@@ -64,7 +64,7 @@ function startSingleAnimalBreedsQuiz(animal) {
             const theme = animal == 'cat' ? 'theme-purple' : 'theme-blue'; 
 
             // Create questions
-            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 1, animal);
+            const questions = QuestionFactory.createMultipleChoiceBreedQuestions(data, 2, animal);
 
             currentQuiz = new BreedsQuiz(quizTitle, theme, questions, animal);
 

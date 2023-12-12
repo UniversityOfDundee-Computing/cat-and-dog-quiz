@@ -136,6 +136,8 @@ class CatDogQuiz extends BreedsQuiz {
         else if (result.animalType == 'cat')
             this.catPoints += result.points;
 
+        saveQuiz(this);
+
         // Delay
         await delay(1000);
 

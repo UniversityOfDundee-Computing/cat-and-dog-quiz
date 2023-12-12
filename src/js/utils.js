@@ -120,21 +120,22 @@ function loadQuiz(){
     if (quizData){
 
         var parsedQuizData = JSON.parse(quizData);
+        var questions = [];
+
+        // Reconstruct questions
+        parsedQuizData.questions.forEach(data => {
+
+            const question = QuestionFactory.createMultipleChoiceQuestion(data.question, data.answer, data.possibleAnswers, data.animalType, data.animalID);
+            questions.push(question)
+            
+        });
 
         // Display single animal quiz
         if(parsedQuizData.name === 'Cat Quiz' || parsedQuizData.name === 'Dog Quiz' ){
-
-            var questions = []
-
-            // Reconstruct questions
-            parsedQuizData.questions.forEach(data => {
-
-                const question = QuestionFactory.createMultipleChoiceQuestion(data.question, data.answer, data.possibleAnswers, data.animalType, data.animalID);
-                questions.push(question)
-                
-            });
-            
             return new BreedsQuiz(parsedQuizData.name, parsedQuizData.theme, questions);
+        }
+        else if(parsedQuizData.name === 'Cat-Dog Quiz'){
+            return new CatDogQuiz(parsedQuizData.name, parsedQuizData.theme, questions);
         }
 
         return null;
