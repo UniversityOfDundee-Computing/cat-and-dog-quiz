@@ -9,7 +9,24 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/quiz.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('sw.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+
+    <link rel="manifest" href="manifest.json">
 
     <script src="js/script.js"></script>
     <script src="js/utils.js"></script>
@@ -140,7 +157,8 @@
 
                 <div class="card-body">
 
-                    <p id="fact-text" class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis a
+                    <p id="fact-text" class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Blanditiis a
                         dolorem commodi deleniti debitis necessitatibus quibusdam, eum modi est, et vero ea, quia
                         libero
                         reprehenderit omnis? Natus ut illo fugit?</p>
