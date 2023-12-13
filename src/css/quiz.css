@@ -34,3 +34,8 @@
     color: white;
     border-color: #ff7851;
 }
+
+#quiz-header{
+    display: inline;
+    border-bottom: 3px solid var(--primary-color);
+}
