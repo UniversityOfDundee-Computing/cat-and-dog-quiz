@@ -117,7 +117,7 @@ class QuizFactory {
             return new AnimalQuiz(parsedQuizData.name, parsedQuizData.theme, questions, parsedQuizData.animalType, parseInt(parsedQuizData.points), parseInt(parsedQuizData.questionAmount));
         }
         else if (parsedQuizData.name === 'Cat/Dog Quiz') {
-            return new CatDogQuiz(parsedQuizData.name, parsedQuizData.theme, questions, parseInt(parsedQuizData.catPoints), parseInt(parsedQuizData.dogPoints));
+            return new CatDogPersonQuiz(parsedQuizData.name, parsedQuizData.theme, questions, parseInt(parsedQuizData.catPoints), parseInt(parsedQuizData.dogPoints));
         }
 
     }
