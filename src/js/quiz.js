@@ -96,7 +96,7 @@ class Quiz {
 }
 
 /**
- * Quiz to keep track of a score for a single animal
+ * Quiz to keep track of a single score
  */
 class AnimalQuiz extends Quiz {
 
@@ -108,7 +108,7 @@ class AnimalQuiz extends Quiz {
      * @param {*} points - Current points in the quiz
      * @param {*} questionAmount - Number of questions in the quiz
      */
-    constructor(name, theme, questions, animalType, points = 0, questionAmount = null) {
+    constructor(name, theme, questions, animalType, points=0, questionAmount=null) {
         super(name, theme, questions);
         this.animalType = animalType;
         this.questions = questions;
@@ -233,6 +233,9 @@ class CatDogPersonQuiz extends AnimalQuiz {
      * Handle quiz over logic
      */
     quizOver() {
+
+        // Remove event listener
+        removeAnswerEventListener();
 
         // Create scores container
         var scoresContainer = document.createElement('div');
