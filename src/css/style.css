@@ -46,13 +46,8 @@ h2 {
     color: white;
 }
 
-.quiz-type {
-    color: white;
-    font-size: 2rem;
-    border-radius: 1rem;
-    border: none;
-}
 
+/* quiz start buttons */
 
 .start-quiz-btn {
     background-color: var(--primary-color);
@@ -62,22 +57,22 @@ h2 {
     border: none;
 }
 
-.start-quiz-btn {
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 2rem;
-    border-radius: 1rem;
-    border: none;
+/* https://codepen.io/amit_sheen/pen/xxZeyjO */
+.start-quiz-btn:hover {
+    background-image: repeating-linear-gradient(0deg, white, white 10px, transparent 10px, transparent 20px, white 20px), repeating-linear-gradient(90deg, white, white 10px, transparent 10px, transparent 20px, white 20px), repeating-linear-gradient(180deg, white, white 10px, transparent 10px, transparent 20px, white 20px), repeating-linear-gradient(270deg, white, white 10px, transparent 10px, transparent 20px, white 20px);
+    background-size: 3px 100%, 100% 3px, 3px 100% , 100% 3px;
+    background-position: 0 0, 0 0, 100% 0, 0 100%;
+    background-repeat: no-repeat;
 }
 
-.img {
-    display: block;
-}
+/* Question elements */
 
 .button {
     border-radius: 1rem;
     padding: .5rem 1rem .5rem 1rem;
+    background-color: var(--primary-color);
     color: white;
+    border: 1px solid var(--primary-color);
 }
 
 .button:hover {
@@ -97,12 +92,6 @@ h2 {
 
 .card h3 {
     color: black
-}
-
-.button {
-    background-color: var(--primary-color);
-    color: white;
-    border: 1px solid var(--primary-color);
 }
 
 .button:hover {
