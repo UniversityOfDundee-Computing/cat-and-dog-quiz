@@ -3,7 +3,7 @@ body {
     color: white;
 }
 
-
+/* Themes */
 .theme-purple {
     --primary-color: #6f42c1;
     --font-color: white;
@@ -19,9 +19,30 @@ body {
     --font-color: white;
 }
 
+/* Nav */
+
+.navbar-brand{
+    font-weight: bold;
+    color: white;
+    pointer-events: none;
+}
+
+
 .navbar {
     border-radius: 0 0 1rem 1rem;
+    background-color: var(--primary-color);
 }
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    font-weight: bold;
+    color: black
+}
+
+/* OTHER */
 
 .bg {
     min-height: 100vh; /* Ensure the background covers at least the viewport height */
