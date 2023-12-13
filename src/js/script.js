@@ -22,7 +22,7 @@ function displayAvailableQuizzes() {
  * 
  * @param {string} quiz - Name of quiz to start 
  */
-function startQuiz(quiz) {
+async function startQuiz(quiz) {
 
     hidePopUp();
 
@@ -32,8 +32,12 @@ function startQuiz(quiz) {
     if (quiz === 'cat' || quiz === 'dog') {
         startAnimalQuiz(quiz);
     }
-    else if (quiz === 'cat-dog') {
-        startCatDogQuiz();
+    else if (quiz === 'cat & dog') {
+        currentQuiz = await QuizFactory.createMultipleAnimalQuiz(4);
+        currentQuiz.start();
+    }
+    else if (quiz === 'cat/dog'){
+        startCatDogPersonQuiz();
     }
 
 }
@@ -50,11 +54,11 @@ async function startAnimalQuiz(animal) {
 }
 
 /**
- * Start cat dog quiz
+ * Start cat dog person quiz 
  */
-async function startCatDogQuiz() {
+async function startCatDogPersonQuiz() {
 
-    currentQuiz = await QuizFactory.createCatDogQuiz(4);
+    currentQuiz = await QuizFactory.createCatDogPersonQuiz(4);
     currentQuiz.start();
 }
 

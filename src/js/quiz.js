@@ -189,9 +189,9 @@ class AnimalQuiz extends Quiz {
 }
 
 /**
- * A quiz which keeps track of points for cat and dog questions
+ * A quiz which keeps track of points for cat and dog questions to figure out what type of person you are
  */
-class CatDogQuiz extends AnimalQuiz {
+class CatDogPersonQuiz extends AnimalQuiz {
 
     /**
      * @param {string} name - Name of the quiz
