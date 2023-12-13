@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <script src="js/script.js"></script>
     <script src="js/utils.js"></script>
@@ -21,7 +22,7 @@
     <script src="js/QuizFactory.js"></script>
 </head>
 
-<body class="bg">
+<body class="bg theme-purple">
 
     <header>
 
@@ -69,10 +70,17 @@
                     <button type="button" class="start-quiz-btn col-12 col-md-3 text-center theme-purple py-4"
                         value="cat">Cat</button>
                     <button type="button" class="start-quiz-btn col-12 col-md-3 text-center theme-pink py-4"
-                        value="cat-dog">Cat-Dog</button>
+                        value="cat & dog">Cat & Dog</button>
                     <button type="button" class="start-quiz-btn col-12 col-md-3 text-center theme-blue py-4"
                         value="dog">Dog</button>
 
+                </div>
+
+                <h2 class="text-center my-3 mt-5"> Type of Person </h2>
+
+                <div class="row justify-content-center gap-2">
+                    <button type="button" class="start-quiz-btn col-12 col-md-3 text-center theme-pink py-4"
+                        value="cat/dog">Cat/Dog</button>
                 </div>
 
             </section>
@@ -86,7 +94,7 @@
 
             <section id="question" class="row justify-content-center mt-2">
 
-                <h2 class="text-center col-12  mt-3">Question 1</h2>
+                <h2 class="text-center col-12  mt-3">Question</h2>
 
                 <img id="question-img" class="img-fluid col-12" style="max-height: 20rem; width: auto"
                     src="https://picsum.photos/id/1/500/500" alt="">
@@ -104,15 +112,19 @@
 
             </section>
 
-            <div id="game-over" class="card position-absolute top-50 start-50 translate-middle">
+            <div id="game-over" class="card position-absolute top-50 start-50 translate-middle hidden">
 
                 <div class="card-header text-center">Game Over</div>
                 <div class="card-body text-center px-5">
 
-                    <p class="card-text">Score:</p>
-                    <div id="score"></div>
-                    <!-- <p id="score" class="my-0">10/100</p> -->
-                    <p class="card-text mt-2 mb-0">You received the rank of....</p>
+                    <h4 class="card-text">Score</h4>
+
+                    <div id="score">
+                        <p class="my-0">Cat: 10</p>
+                        <p class="my-0">Dog: 10</p>
+                    </div>
+
+                    <p class="card-text mt-3 mb-0">You received the rank of....</p>
                     <h3 id="rank" class="mt-2 mb-5">God of Cats!</h3>
 
                     <div class="d-flex justify-content-center">
@@ -123,7 +135,7 @@
 
             </div>
 
-            <div id="fact" class="card position-absolute top-50 start-50 translate-middle">
+            <div id="fact" class="card position-absolute top-50 start-50 translate-middle hidden">
                 <div class="card-header text-center">Fact!</div>
 
                 <div class="card-body">

@@ -17,6 +17,9 @@ class Quiz {
      */
     start() {
 
+        // Set the theme
+        document.body.className = `bg ${this.theme}`;
+
         // Clear all possibly visible elements
         hidePopUp();
 
@@ -82,6 +85,10 @@ class Quiz {
             .then(data => {
                 question.displayQuestion(data[0].url);
             })
+            .catch((err) => {
+                console.error(`Failed to get animal details of ${question.animalID}, ${question.animalType}`);
+                this.nextQuestion();
+            })
     }
 
     checkAnswer() { }
@@ -96,7 +103,7 @@ class Quiz {
 }
 
 /**
- * Quiz to keep track of a score for a single animal
+ * Quiz to keep track of a single score
  */
 class AnimalQuiz extends Quiz {
 
@@ -108,7 +115,7 @@ class AnimalQuiz extends Quiz {
      * @param {*} points - Current points in the quiz
      * @param {*} questionAmount - Number of questions in the quiz
      */
-    constructor(name, theme, questions, animalType, points = 0, questionAmount = null) {
+    constructor(name, theme, questions, animalType, points=0, questionAmount=null) {
         super(name, theme, questions);
         this.animalType = animalType;
         this.questions = questions;
@@ -189,9 +196,9 @@ class AnimalQuiz extends Quiz {
 }
 
 /**
- * A quiz which keeps track of points for cat and dog questions
+ * A quiz which keeps track of points for cat and dog questions to figure out what type of person you are
  */
-class CatDogQuiz extends AnimalQuiz {
+class CatDogPersonQuiz extends AnimalQuiz {
 
     /**
      * @param {string} name - Name of the quiz
@@ -233,6 +240,9 @@ class CatDogQuiz extends AnimalQuiz {
      * Handle quiz over logic
      */
     quizOver() {
+
+        // Remove event listener
+        removeAnswerEventListener();
 
         // Create scores container
         var scoresContainer = document.createElement('div');
