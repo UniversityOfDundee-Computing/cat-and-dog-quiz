@@ -80,6 +80,8 @@ function setupEventListeners(){
 
     // Add event listener to game over screen button
     document.getElementById('return-btn').addEventListener('click', displayAvailableQuizzes);
+    document.getElementById('quiz-nav').addEventListener('click', displayAvailableQuizzes);
+
 }
 
 window.onload = async function () {
