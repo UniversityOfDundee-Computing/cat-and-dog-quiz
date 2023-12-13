@@ -45,7 +45,7 @@ class QuizFactory {
             const quizTitle = 'Cat & Dog Quiz';
 
             // Determine theme
-            const theme = 'theme-purple';
+            const theme = 'theme-pink';
 
             // Create questions
             const questions = QuestionFactory.createCatDogMultipleChoiceBreedQuestions(catBreeds, dogBreeds, questionAmount);
