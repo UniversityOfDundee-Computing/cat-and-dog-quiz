@@ -13,12 +13,27 @@
     font-size: 1.5rem;
 }
 
+#question-img{
+    max-height: 20rem; 
+    width: auto; 
+}
+
 @media (max-width: 769px) {
     .question-answer {
         border-radius: 1rem;
         padding: .5rem;
         font-size: 1rem;
     }
+
+    #question-img{
+        max-height: 15rem; 
+        width: auto; 
+    }
+
+    #question-answers {
+        margin-top: 15rem; 
+    }
+
 }
 
 .question-answer:hover:enabled {
