@@ -126,7 +126,9 @@ h2 {
 }
 
 #rank {
-    color: #ffce67;
+    color: black;
+    font-weight: bold;
+    /* color: #ffce67; */
 }
 
 .center {
