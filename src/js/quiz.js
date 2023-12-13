@@ -85,6 +85,10 @@ class Quiz {
             .then(data => {
                 question.displayQuestion(data[0].url);
             })
+            .catch((err) => {
+                console.error(`Failed to get animal details of ${question.animalID}, ${question.animalType}`);
+                this.nextQuestion();
+            })
     }
 
     checkAnswer() { }
