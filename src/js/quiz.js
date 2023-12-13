@@ -17,6 +17,9 @@ class Quiz {
      */
     start() {
 
+        // Set the theme
+        document.body.className = `bg ${this.theme}`;
+
         // Clear all possibly visible elements
         hidePopUp();
 
