@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/popUp.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- PWA -->
@@ -80,7 +81,7 @@
 
         <!-- Available Quizes -->
 
-        <div id="quizzes" class="mt-md-5 mt-3 hidden row">
+        <div id="quizzes" class="mt-md-5 mt-3 hidden row show">
 
             <div class="col-12 text-center mt-lg-4 my-2">
                 <div class="mx-auto">
@@ -128,7 +129,7 @@
 
         <!-- Quiz -->
 
-        <section id="quiz" class="row justify-content-center">
+        <section id="quiz" class="row justify-content-center show">
 
             <div class="col-12 text-center mt-md-4 my-2">
                 <div class="mx-auto">
@@ -172,10 +173,14 @@
         <div class="container">
 
             <div class="row">
+
                 <!-- Game over popup -->
-                <div id="game-over" class="card center col-sm-10 col-lg-4 p-0">
+                <div id="game-over" class="card center col-sm-10 col-lg-4 p-0 hidden show">
+
                     <div class="card-header text-center">Game Over</div>
+
                     <div class="card-body text-center px-5">
+
                         <h4 class="card-text">Score</h4>
                         <div id="score">
                             <p class="my-0">Cat: 10</p>
@@ -194,21 +199,28 @@
                         <div class="d-flex justify-content-center">
                             <button id="return-btn" type="button" class="button">Return</button>
                         </div>
+
                     </div>
                 </div>
+
                 <!-- Fact popup -->
-                <div id="fact" class="card center col-sm-10 col-lg-4 p-0 hidden">
+                <div id="fact" class="card center col-sm-10 col-lg-4 p-0 hidden show">
+
                     <div class="card-header text-center">Fact!</div>
+                    
                     <div class="card-body">
+
                         <p id="fact-text" class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                             Blanditiis a
                             dolorem commodi deleniti debitis necessitatibus quibusdam, eum modi est, et vero ea, quia
                             libero
                             reprehenderit omnis? Natus ut illo fugit?</p>
+
                         <div id="fact-btns" class="d-flex justify-content-lg-end justify-content-center">
                             <button id="next-question-btn" type="button" class="button">Next</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
