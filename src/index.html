@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woof and Meow Quiz</title>
 
+    <!-- Style -->
+
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+    <!-- PWA -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
@@ -27,6 +30,8 @@
     </script>
 
     <link rel="manifest" href="manifest.json">
+
+    <!-- Scripts -->
 
     <script src="js/script.js"></script>
     <script src="js/utils.js"></script>
@@ -73,12 +78,15 @@
 
     <main class="container">
 
+        <!-- Available Quizes -->
 
         <div id="quizzes" class="mt-5 hidden">
 
             <h1 class="text-center">Pick your Quiz</h1>
 
             <section class="mt-5">
+
+                <!-- Guess the breed questions -->
 
                 <h2 class="text-center mb-3"> Guess the Breeds </h2>
 
@@ -93,6 +101,8 @@
 
                 </div>
 
+                <!-- Other questions -->
+
                 <h2 class="text-center my-3 mt-5"> Type of Person </h2>
 
                 <div class="row justify-content-center gap-2">
@@ -104,6 +114,7 @@
 
         </div>
 
+        <!-- Quiz -->
 
         <section id="quiz" class="">
 
@@ -118,6 +129,8 @@
 
                 <h3 id="question-text" class="text-center col-12 mt-3 question-text">What is the breed?</h3>
 
+                <!-- Question answers -->
+
                 <div id="question-answers" class="row justify-content-center gap-3 mt-3">
 
                     <button type="button" class="question-answer col-lg-4 col-sm-12">Cat 1</button>
@@ -129,50 +142,44 @@
 
             </section>
 
-            <div id="game-over" class="card position-absolute top-50 start-50 translate-middle hidden">
-
-                <div class="card-header text-center">Game Over</div>
-                <div class="card-body text-center px-5">
-
-                    <h4 class="card-text">Score</h4>
-
-                    <div id="score">
-                        <p class="my-0">Cat: 10</p>
-                        <p class="my-0">Dog: 10</p>
-                    </div>
-
-                    <p class="card-text mt-3 mb-0">You received the rank of....</p>
-                    <h3 id="rank" class="mt-2 mb-5">God of Cats!</h3>
-
-                    <div class="d-flex justify-content-center">
-                        <button id="return-btn" type="button" class="button">Return</button>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div id="fact" class="card position-absolute top-50 start-50 translate-middle hidden">
-                <div class="card-header text-center">Fact!</div>
-
-                <div class="card-body">
-
-                    <p id="fact-text" class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                        Blanditiis a
-                        dolorem commodi deleniti debitis necessitatibus quibusdam, eum modi est, et vero ea, quia
-                        libero
-                        reprehenderit omnis? Natus ut illo fugit?</p>
-
-                    <div id="fact-btns" class="d-flex justify-content-end">
-                        <button id="next-question-btn" type="button" class="button">Next</button>
-                    </div>
-
-                </div>
-
-
-            </div>
 
         </section>
+
+        <div class="container">
+
+            <div class="row">
+                <!-- Game over popup -->
+                <div id="game-over"  class="card center col-sm-10 col-lg-4 p-0">
+                    <div class="card-header text-center">Game Over</div>
+                    <div class="card-body text-center px-5">
+                        <h4 class="card-text">Score</h4>
+                        <div id="score">
+                            <p class="my-0">Cat: 10</p>
+                            <p class="my-0">Dog: 10</p>
+                        </div>
+                        <p class="card-text mt-3 mb-0">You received the rank of....</p>
+                        <h3 id="rank" class="mt-2 mb-5">God of Cats!</h3>
+                        <div class="d-flex justify-content-center">
+                            <button id="return-btn" type="button" class="button">Return</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fact popup -->
+                <div id="fact" class="card center col-sm-10 col-lg-4 p-0 hidden">
+                    <div class="card-header text-center">Fact!</div>
+                    <div class="card-body">
+                        <p id="fact-text" class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                            Blanditiis a
+                            dolorem commodi deleniti debitis necessitatibus quibusdam, eum modi est, et vero ea, quia
+                            libero
+                            reprehenderit omnis? Natus ut illo fugit?</p>
+                        <div id="fact-btns" class="d-flex justify-content-lg-end justify-content-center">
+                            <button id="next-question-btn" type="button" class="button">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 

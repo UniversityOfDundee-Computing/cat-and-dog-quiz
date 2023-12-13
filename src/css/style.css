@@ -37,12 +37,12 @@ body {
     }
 }
 
-
 .hidden {
     display: none;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: white;
 }
 
@@ -53,6 +53,14 @@ h1, h2 {
     border: none;
 }
 
+
+.start-quiz-btn {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 2rem;
+    border-radius: 1rem;
+    border: none;
+}
 
 .start-quiz-btn {
     background-color: var(--primary-color);
@@ -110,4 +118,12 @@ h1, h2 {
 
 #rank {
     color: #ffce67;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
