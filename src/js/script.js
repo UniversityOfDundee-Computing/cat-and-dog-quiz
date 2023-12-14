@@ -33,7 +33,7 @@ async function startQuiz(quiz) {
         startAnimalQuiz(quiz);
     }
     else if (quiz === 'cat & dog') {
-        currentQuiz = await QuizFactory.createMultipleAnimalQuiz(4);
+        currentQuiz = await QuizFactory.createMultipleAnimalQuiz(10);
         currentQuiz.start();
     }
     else if (quiz === 'cat/dog'){
@@ -49,7 +49,7 @@ async function startQuiz(quiz) {
  */
 async function startAnimalQuiz(animal) {
 
-    currentQuiz = await QuizFactory.createAnimalQuiz(animal, 4);
+    currentQuiz = await QuizFactory.createAnimalQuiz(animal, 10);
     currentQuiz.start();
 }
 
@@ -58,7 +58,7 @@ async function startAnimalQuiz(animal) {
  */
 async function startCatDogPersonQuiz() {
 
-    currentQuiz = await QuizFactory.createCatDogPersonQuiz(4);
+    currentQuiz = await QuizFactory.createCatDogPersonQuiz(10);
     currentQuiz.start();
 }
 
