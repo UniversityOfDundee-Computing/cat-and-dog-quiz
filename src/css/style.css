@@ -1,0 +1,145 @@
+body {
+    background-color: #001220;
+    color: white;
+}
+
+/* Themes */
+.theme-purple {
+    --primary-color: #6f42c1;
+    --font-color: white;
+}
+
+.theme-blue {
+    --primary-color: #007bff;
+    --font-color: white;
+}
+
+.theme-pink {
+    --primary-color: #e83e8c;
+    --font-color: white;
+}
+
+/* Nav */
+
+.navbar-brand{
+    font-weight: bold;
+    color: white;
+    pointer-events: none;
+}
+
+
+.navbar {
+    border-radius: 0 0 1rem 1rem;
+    background-color: var(--primary-color);
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    font-weight: bold;
+    color: black
+}
+
+/* OTHER */
+
+.bg {
+    min-height: 100vh; /* Ensure the background covers at least the viewport height */
+    background: url('../assets/layered-waves-haikei.svg') center bottom/cover no-repeat;
+}
+
+@media (max-width: 991.98px) {
+    body {
+        background-image: url('../assets/layered-waves-haikei-vertical.svg');
+        background-position: bottom;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+h1,
+h2 {
+    color: white;
+}
+
+
+/* quiz start buttons */
+
+.start-quiz-btn {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 2rem;
+    border-radius: 1rem;
+    border: none;
+}
+
+/* https://codepen.io/amit_sheen/pen/xxZeyjO */
+.start-quiz-btn:hover {
+    background-image: repeating-linear-gradient(0deg, white, white 10px, transparent 10px, transparent 20px, white 20px), repeating-linear-gradient(90deg, white, white 10px, transparent 10px, transparent 20px, white 20px), repeating-linear-gradient(180deg, white, white 10px, transparent 10px, transparent 20px, white 20px), repeating-linear-gradient(270deg, white, white 10px, transparent 10px, transparent 20px, white 20px);
+    background-size: 3px 100%, 100% 3px, 3px 100% , 100% 3px;
+    background-position: 0 0, 0 0, 100% 0, 0 100%;
+    background-repeat: no-repeat;
+}
+
+/* Question elements */
+
+.button {
+    border-radius: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+}
+
+.button:hover {
+    border-radius: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    background-color: white;
+}
+
+.card-custom {
+    background-color: white;
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.card h3 {
+    color: black
+}
+
+.button:hover {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    
+}
+
+
+#game-over p {
+    margin-bottom: 0;
+}
+
+#rank {
+    color: black;
+    font-weight: bold;
+    /* color: #ffce67; */
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fancy-underline{
+    border-bottom: 3px solid var(--primary-color);
+    display: inline;
+}
